@@ -5,9 +5,16 @@
     <% # added by super scaffolding. %>
   <% end %>
 
-  <%= render 'account/shared/menu/section', title: t('menus.main.labels.integrations') do %>
+  <% integrations = capture do %>
     <%= render 'account/integrations/stripe_installations/menu_item' if stripe_enabled? %>
     <%# 🚅 super scaffolding will insert new oauth providers above this line. %>
+  <% end %>
+
+  <%# We don't want to show this menu section if the menu items only rendered annotations. %>
+  <% if integrations.gsub(/<!--(.*)-->/, "").present? %>
+    <%= render 'account/shared/menu/section', title: t('menus.main.labels.integrations') do %>
+      <%= integrations %>
+    <% end %>
   <% end %>
 
   <%= render 'account/shared/menu/section', title: t('menus.main.labels.developers') do %>
@@ -29,6 +36,10 @@
     <% p.content_for :icon do %>
       <i class="fal fa-user-cog ti ti-user"></i>
     <% end %>
+  <% end %>
+
+  <% if billing_enabled? %>
+    <%= render 'account/billing/subscriptions/menu_item' %>
   <% end %>
 
   <% if current_user.multiple_teams? %>
