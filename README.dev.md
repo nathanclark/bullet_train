@@ -3,10 +3,10 @@
 
 
 
-rails g model Company name:string legal_name ein
+rails g model Company team:references  name:string legal_name ein
 bin/super-scaffold crud Company Team name:text_field legal_name:text_field ein:text_field
 
-rails g PostalAddress address_type:string street1:string street2:string city:string state:string zipcode:string
+rails g PostalAddress company:references address_type:string street1:string street2:string city:string state:string zipcode:string
 
 rails g model LedgerAccount team:references ledger_account_number:string account_types:integer account_statuses:integer posting_types:integer alternate_account_number:string visible:boolean reporting_excluded:boolean  parent_id:integer
 

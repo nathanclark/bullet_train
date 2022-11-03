@@ -1,0 +1,99 @@
+en:
+  companies: &companies
+    label: &label Companies
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece ti ti-gift
+    buttons: &buttons
+      new: Add New Company
+      create: Create Company
+      edit: Edit Company
+      update: Update Company
+      destroy: Remove Company
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{company_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Company ID
+      team_id:
+        heading: Team ID
+      name:
+        _: &name Name
+        label: *name
+        heading: *name
+      legal_name:
+        _: &legal_name Legal Name
+        label: *legal_name
+        heading: *legal_name
+      ein:
+        _: &ein Ein
+        label: *ein
+        heading: *ein
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Companies"
+      index: "List Companies"
+      create: "Add a New Company"
+      member_actions: "Actions for an Individual Company"
+      show: "Retrieve a Company"
+      update: "Update a Company"
+      destroy: "Delete a Company"
+      fields: *fields
+    index:
+      section: "%{teams_possessive} Companies"
+      contexts:
+        team:
+          header: Companies
+          description: Below is a list of Companies that have been added for %{team_name}.
+          description_empty: No Companies have been added for %{team_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{company_name}"
+      header: Company Details
+      description: Below are the details we have for %{company_name}.
+      manage_description: You'll also find options for updating these details or removing %{company_name} from %{team_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Company for %{team_name}"
+      header: New Company Details
+      description: Please provide the details of the new Company you'd like to add to %{team_name}.
+      form: *form
+    edit:
+      section: "%{company_name}"
+      header: Edit Company Details
+      description: You can update the details or settings for %{company_name} below.
+      form: *form
+    notifications:
+      created: Company was successfully created.
+      updated: Company was successfully updated.
+      destroyed: Company was successfully destroyed.
+  account:
+    companies: *companies
+  activerecord:
+    attributes:
+      company:
+        name: *name
+        legal_name: *legal_name
+        ein: *ein
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

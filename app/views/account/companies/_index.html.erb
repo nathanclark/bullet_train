@@ -1,0 +1,85 @@
+<% team = @team || @team %>
+<% context ||= team %>
+<% collection ||= :companies %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% companies = companies.order(:id) unless has_order?(companies) %>
+<% pagy, companies = pagy(companies, page_param: :companies_page) %>
+
+<%= action_model_select_controller do %>
+  <%= updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless companies.any?}") %>
+        <%= render "shared/limits/index", model: companies.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if companies.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <%= render "shared/tables/select_all" %>
+                <th><%= t('.fields.name.heading') %></th>
+                <th><%= t('.fields.legal_name.heading') %></th>
+                <th><%= t('.fields.ein.heading') %></th>
+                <%# 🚅 super scaffolding will insert new field headers above this line. %>
+                <th><%= t('.fields.created_at.heading') %></th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% companies.each do |company| %>
+                <% with_attribute_settings object: company do %>
+                  <tr data-id="<%= company.id %>">
+                    <%= render "shared/tables/checkbox", object: company %>
+                    <td><%= render 'shared/attributes/text', attribute: :name, url: [:account, company] %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :legal_name %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :ein %></td>
+                    <%# 🚅 super scaffolding will insert new fields above this line. %>
+                    <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
+                    <td class="buttons">
+                      <% unless hide_actions %>
+                        <% if can? :edit, company %>
+                          <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, company], class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <% if can? :destroy, company %>
+                          <%= button_to t('.buttons.shorthand.destroy'), [:account, company], method: :delete, data: { confirm: t('.buttons.confirmations.destroy', model_locales(company)) }, class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == team %>
+            <% if can? :create, Company.new(team: team) %>
+              <%= link_to t('.buttons.new'), [:new, :account, team, :company], class: "#{first_button_primary(:company)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:company)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
