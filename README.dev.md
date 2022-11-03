@@ -7,6 +7,8 @@ rails g model Company team:references  name:string legal_name ein
 bin/super-scaffold crud Company Team name:text_field legal_name:text_field ein:text_field
 
 rails g PostalAddress company:references address_type:string street1:string street2:string city:string state:string zipcode:string
+bin/super-scaffold crud PostalAddress Company,Team address_type:text_field street1:text_field street2:text_field city:text_field state:text_field zipcode:text_field
+name:text_field legal_name:text_field ein:text_field
 
 rails g model LedgerAccount team:references ledger_account_number:string account_types:integer account_statuses:integer posting_types:integer alternate_account_number:string visible:boolean reporting_excluded:boolean  parent_id:integer
 
