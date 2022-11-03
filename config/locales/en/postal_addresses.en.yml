@@ -1,0 +1,114 @@
+en:
+  postal_addresses: &postal_addresses
+    label: &label Postal Addresses
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Postal Address
+      create: Create Postal Address
+      edit: Edit Postal Address
+      update: Update Postal Address
+      destroy: Remove Postal Address
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{postal_address_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Postal Address ID
+      company_id:
+        heading: Company ID
+      address_type:
+        _: &address_type Address Type
+        label: *address_type
+        heading: *address_type
+      street1:
+        _: &street1 Street1
+        label: *street1
+        heading: *street1
+      street2:
+        _: &street2 Street2
+        label: *street2
+        heading: *street2
+      city:
+        _: &city City
+        label: *city
+        heading: *city
+      state:
+        _: &state State
+        label: *state
+        heading: *state
+      zipcode:
+        _: &zipcode Zipcode
+        label: *zipcode
+        heading: *zipcode
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Postal Addresses"
+      index: "List Postal Addresses"
+      create: "Add a New Postal Address"
+      member_actions: "Actions for an Individual Postal Address"
+      show: "Retrieve a Postal Address"
+      update: "Update a Postal Address"
+      destroy: "Delete a Postal Address"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Postal Addresses"
+      contexts:
+        company:
+          header: Postal Addresses
+          description: Below is a list of Postal Addresses that have been added for %{company_name}.
+          description_empty: No Postal Addresses have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{postal_address_name}"
+      header: Postal Address Details
+      description: Below are the details we have for %{postal_address_name}.
+      manage_description: You'll also find options for updating these details or removing %{postal_address_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Postal Address for %{company_name}"
+      header: New Postal Address Details
+      description: Please provide the details of the new Postal Address you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{postal_address_name}"
+      header: Edit Postal Address Details
+      description: You can update the details or settings for %{postal_address_name} below.
+      form: *form
+    notifications:
+      created: Postal Address was successfully created.
+      updated: Postal Address was successfully updated.
+      destroyed: Postal Address was successfully destroyed.
+  account:
+    postal_addresses: *postal_addresses
+  activerecord:
+    attributes:
+      postal_address:
+        address_type: *address_type
+        street1: *street1
+        street2: *street2
+        city: *city
+        state: *state
+        zipcode: *zipcode
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

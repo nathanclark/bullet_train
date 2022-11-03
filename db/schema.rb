@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_195717) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_200900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -182,6 +182,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_195717) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["uid"], name: "index_oauth_stripe_accounts_on_uid", unique: true
     t.index ["user_id"], name: "index_oauth_stripe_accounts_on_user_id"
+  end
+
+  create_table "postal_addresses", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "address_type"
+    t.string "street1"
+    t.string "street2"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_postal_addresses_on_company_id"
   end
 
   create_table "scaffolding_absolutely_abstract_creative_concepts", force: :cascade do |t|
@@ -360,6 +373,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_195717) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_applications", "teams"
   add_foreign_key "oauth_stripe_accounts", "users"
+  add_foreign_key "postal_addresses", "companies"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts", "teams"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts_collaborators", "memberships"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts_collaborators", "scaffolding_absolutely_abstract_creative_concepts", column: "creative_concept_id"

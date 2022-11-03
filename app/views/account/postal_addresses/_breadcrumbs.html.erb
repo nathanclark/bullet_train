@@ -1,0 +1,8 @@
+<% postal_address ||= @postal_address %>
+<% company ||= @company || postal_address&.company %>
+<%= render 'account/companies/breadcrumbs', company: company %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, company, :postal_addresses] %>
+<% if postal_address&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: postal_address.label_string, url: [:account, postal_address] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'postal_addresses' %>

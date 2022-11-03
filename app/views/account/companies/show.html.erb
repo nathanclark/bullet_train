@@ -31,6 +31,7 @@
       <% end %>
     <% end %>
 
+    <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
     <%# 🚅 super scaffolding will insert new children above this line. %>
   <% end %>
 <% end %>

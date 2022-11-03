@@ -1,19 +1,19 @@
-class Company < ApplicationRecord
+class PostalAddress < ApplicationRecord
   # 🚅 add concerns above.
 
   # 🚅 add attribute accessors above.
 
-  belongs_to :team
+  belongs_to :company
   # 🚅 add belongs_to associations above.
 
-  has_many :postal_addresses, dependent: :destroy, enable_updates: true
   # 🚅 add has_many associations above.
 
+  has_one :team, through: :company
   # 🚅 add has_one associations above.
 
   # 🚅 add scopes above.
 
-  validates :name, presence: true
+  validates :address_type, presence: true
   # 🚅 add validations above.
 
   # 🚅 add callbacks above.

@@ -67,7 +67,9 @@ Rails.application.routes.draw do
           # 🚅 super scaffolding will insert new integration installations above this line.
         end
 
-        resources :companies
+        resources :companies do
+          resources :postal_addresses
+        end
       end
     end
   end
