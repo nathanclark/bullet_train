@@ -1,6 +1,7 @@
 class Account::CompaniesController < Account::ApplicationController
   account_load_and_authorize_resource :company, through: :team, through_association: :companies
 
+
   # GET /account/teams/:team_id/companies
   # GET /account/teams/:team_id/companies.json
   def index
@@ -15,6 +16,7 @@ class Account::CompaniesController < Account::ApplicationController
 
   # GET /account/teams/:team_id/companies/new
   def new
+    @company.postal_addresses.new(address_type:'1')
   end
 
   # GET /account/companies/:id/edit
@@ -63,7 +65,14 @@ class Account::CompaniesController < Account::ApplicationController
 
   include strong_parameters_from_api
 
+  def permitted_fields
+    [postal_addresses_attributes:[]]
+  end
+  def permitted_arrays
+    [:street1,:street2,:city,:state,:zipcode]
+  end
   def process_params(strong_params)
+    puts 'test'
     # 🚅 super scaffolding will insert processing for new fields above this line.
   end
 end

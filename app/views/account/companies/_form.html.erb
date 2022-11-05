@@ -11,6 +11,19 @@
       <%# 🚅 super scaffolding will insert new fields above this line. %>
     <% end %>
 
+    <h4>Addresses</h4>
+    <%= form.fields_for :postal_addresses do |address_form| %>
+        <div class="form-group">
+
+        <%= render 'shared/fields/text_field', form: address_form, method: :address_type %>
+        <%= render 'shared/fields/text_field', form: address_form, method: :street1 %>
+        <%= render 'shared/fields/text_field', form: address_form, method: :street2 %>
+        <%= render 'shared/fields/text_field', form: address_form, method: :city %>
+        <%= render 'shared/fields/text_field', form: address_form, method: :state %>
+        <%= render 'shared/fields/text_field', form: address_form, method: :zipcode %>
+        </div>
+      <% end %>
+
     <div class="buttons">
       <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
       <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
