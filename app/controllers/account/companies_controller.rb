@@ -16,7 +16,7 @@ class Account::CompaniesController < Account::ApplicationController
 
   # GET /account/teams/:team_id/companies/new
   def new
-    @company.postal_addresses.new(address_type:'1')
+    @company.postal_addresses.build()
   end
 
   # GET /account/companies/:id/edit

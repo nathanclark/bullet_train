@@ -20,7 +20,7 @@
 - 10/25 Call Intros
 - 10/26 Call Showed me past work
 - 10/27 Sent NDA
-- 10/31 Signed NDA. I sent him walk through videos
+- 10/31 Signed NDA. I sent him walk through videosgem
 - UPCOMING Call 11/7
 
 

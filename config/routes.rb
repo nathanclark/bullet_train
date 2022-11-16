@@ -68,7 +68,12 @@ Rails.application.routes.draw do
         end
 
         resources :companies do
-          resources :postal_addresses
+          resources :postal_addresses, only: [], param: :index do
+            member do
+              delete '(:id)' => "postal_addresses#destroy", as: ""
+              post '/' => "postal_addresses#create"
+            end
+          end
         end
       end
     end

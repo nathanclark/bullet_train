@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "postal_address_#{form.index}" do %>
+  <%= form.hidden_field :id %>
+  <%= render 'account/shared/forms/errors', form: form %>
+  <% with_field_settings form: form do %>
+    <%= render 'shared/fields/text_field', method: :address_type, options: {autofocus: true} %>
+    <%= render 'shared/fields/text_field', method: :street1 %>
+    <%= render 'shared/fields/text_field', method: :street2 %>
+    <%= render 'shared/fields/text_field', method: :city %>
+    <%= render 'shared/fields/text_field', method: :state %>
+    <%= render 'shared/fields/text_field', method: :zipcode %>
+    <%# 🚅 super scaffolding will insert new fields above this line. %>
+  <% end %>
+  <div class="buttons">
+    <%= form.submit "destroy postal_address", 
+        formaction: account_postal_address_path(form.index, form.object.id), 
+        formmethod: :delete, 
+        formnovalidate: true, 
+        data: { turbo_frame: "postal_address_#{form.index}" } %>
+  </div>
+<% end %>

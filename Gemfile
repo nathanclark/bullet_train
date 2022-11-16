@@ -102,7 +102,7 @@ gem "bullet_train-api"
 gem "bullet_train-outgoing_webhooks"
 gem "bullet_train-incoming_webhooks"
 gem "bullet_train-themes"
-gem "bullet_train-themes-light"
+gem "bullet_train-themes-light", path: "./themes/light"
 gem "bullet_train-integrations"
 gem "bullet_train-integrations-stripe"
 
@@ -176,3 +176,5 @@ gem "sidekiq", "~> 6.0"
 # that you run into a merge conflict in the future.
 
 # 🚅 super scaffolding will insert new oauth providers above this line.
+gem 'requestjs-rails'
+gem "importmap-rails", "~> 1.1"

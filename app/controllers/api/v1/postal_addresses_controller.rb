@@ -37,17 +37,8 @@ class Api::V1::PostalAddressesController < Api::V1::ApplicationController
   module StrongParameters
     # Only allow a list of trusted parameters through.
     def postal_address_params
-      strong_params = params.require(:postal_address).permit(
-        *permitted_fields,
-        :address_type,
-        :street1,
-        :street2,
-        :city,
-        :state,
-        :zipcode,
-        # 🚅 super scaffolding will insert new fields above this line.
-        *permitted_arrays,
-        # 🚅 super scaffolding will insert new arrays above this line.
+      strong_params = params.require(:company).permit(
+        postal_addresses_attributes:[:address_type,:street1,:street2,:city,:state,:zipcode]
       )
 
       process_params(strong_params)

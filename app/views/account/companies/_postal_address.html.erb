@@ -1,0 +1,15 @@
+<%=  postal_address%>
+<%= fields_for "companies[postal_addresses_attributes][#{(postal_address.persisted?) ? postal_address.id : Time.now.to_i}]", postal_address do |ff| %>
+  <%= ff.label :address_type %>
+  <%= ff.text_field :address_type %>
+  <%= ff.label :street1 %>
+  <%= ff.text_field :street1 %>
+  <%= ff.label :street2 %>
+  <%= ff.text_field :street2 %>
+  <%= ff.label :city %>
+  <%= ff.text_field :city %>
+  <%= ff.label :state %>
+  <%= ff.text_field :state %>
+  <%= ff.label :zipcode %>
+  <%= ff.text_field :zipcode %>
+<% end %>

@@ -1,0 +1,8 @@
+<%= fields model: company do |form| %>
+  <%= form.fields_for :postal_addresses, child_index: params[:index] do |postal_address_form| %>
+    <%= turbo_frame_tag "postal_address_#{postal_address_form.index}" do %>
+      <%= postal_address_form.hidden_field :id, value: params[:id] %>
+      <%= postal_address_form.hidden_field :_destroy, value: true %>
+    <% end %>
+  <% end %>
+<% end %>

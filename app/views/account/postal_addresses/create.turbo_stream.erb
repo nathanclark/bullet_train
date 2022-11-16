@@ -1,0 +1,14 @@
+<%= fields model: @company do |form| %>
+  <%= form.fields_for :postal_addresses do |address_form| %>
+    <%= turbo_stream.replace "add-postal-address" do %>
+      <%= form.submit "Add Post Address", class: "btn btn-primary",
+                    formaction: account_postal_address_path(address_form.index.to_i + 1), 
+                    formmethod: :post, 
+                    formnovalidate: true, 
+                    id: "add-postal-address" %>
+    <% end %>
+    <%= turbo_stream.append "postal_addresses" do %>
+      <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
+    <% end %>
+  <% end %>
+<% end %>
