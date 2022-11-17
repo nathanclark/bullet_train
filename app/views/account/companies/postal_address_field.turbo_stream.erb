@@ -1,0 +1,3 @@
+<%= turbo_stream.append 'postal_addresses' do %>
+  <%= render partial: 'account/companies/postal_address', locals:{postal_address: PostalAddress.new} %>
+<% end %>

@@ -3,6 +3,7 @@ class Api::V1::CompaniesController < Api::V1::ApplicationController
 
   # GET /api/v1/teams/:team_id/companies
   def index
+
   end
 
   # GET /api/v1/companies/:id
@@ -41,7 +42,7 @@ class Api::V1::CompaniesController < Api::V1::ApplicationController
         :name,
         :legal_name,
         :ein,
-        postal_addresses_attributes:[:address_type,:street1,:street2,:city,:state,:zipcode]
+        postal_addresses_attributes:[:id,:address_type,:street1,:street2,:city,:state,:zipcode]
       )
       process_params(strong_params)
       strong_params

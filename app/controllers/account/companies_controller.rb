@@ -16,6 +16,7 @@ class Account::CompaniesController < Account::ApplicationController
 
   # GET /account/teams/:team_id/companies/new
   def new
+    @company.id = Time.now.to_i
     @company.postal_addresses.build()
   end
 
@@ -61,6 +62,10 @@ class Account::CompaniesController < Account::ApplicationController
     end
   end
 
+  def postal_address_field
+    puts 'ss'
+    #render layout: false
+  end
   private
 
   include strong_parameters_from_api

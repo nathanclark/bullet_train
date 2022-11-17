@@ -32,7 +32,7 @@
 <div id="myTabContent">
   <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
     <%= turbo_frame_tag company do %>
-      <%= form_with model: company, url: (company.persisted? ? [:account, company] : [:account, @team, :companies]), local: true, class: 'form' do |form| %>
+      <%= form_with model: company, url: (company.persisted? ? [:account, company] : [:account, @team, :companies]), local: true, class: 'form', data:{controller:'companies',companies_company_value:company.id} do |form| %>
         <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
           <%= render 'account/shared/forms/errors', form: form %>
           <% with_field_settings form: form do %>
@@ -45,10 +45,9 @@
           <% end %>
           <h4>Addresses</h4>
           <div id="postal_addresses">
-            <%= company.postal_addresses  %>
             <%= render partial: 'postal_address', collection: company.postal_addresses %>
           </div>
-          <div><%= button_tag "Add New Address", type:"button", data:{action: "render-response#getPostalAddressPartial"} %></div>
+          <div><%= link_to "Add New Address", postal_address_field_account_team_companies_path(company), data:{turbo_stream:true} %></div>
           <div class="buttons">
             <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
             <%= link_to t('global.buttons.cancel'), cancel_path, class: "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" %>
