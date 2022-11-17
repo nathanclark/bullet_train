@@ -1,25 +1,17 @@
 <% cancel_path ||= company.persisted? ? [:account, company] : [:account, @team, :companies] %>
-<button class="inline-block cursor-pointer bg-gray-800 px-4 py-3 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-900">Button</button>
-<!-- The button to open modal -->
-<label for="my-modal" class="btn btn-primary">open modal</label>
-<!-- Put this part before </body> tag -->
-<input type="checkbox" id="my-modal" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-    <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-    <div class="modal-action">
-      <label for="my-modal" class="btn">Yay!</label>
-    </div>
-  </div>
-</div>
-<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+<%= turbo_frame_tag company do %>
+  <%= form_with model: company, url: (company.persisted? ? [:account, company] : [:account, @team, :companies]), local: true, class: 'form', data:{controller:'companies',companies_company_value:company.id} do |form| %>
+
+
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
   <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
     <li class="mr-2" role="presentation">
-      <button class="inline-block p-4 rounded-t-lg border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Profile</button>
+      <button class="inline-block p-4 rounded-t-lg border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Primary</button>
     </li>
     <li class="mr-2" role="presentation">
-      <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</button>
+
+      <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard
+        </button>
     </li>
     <li class="mr-2" role="presentation">
       <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
@@ -30,9 +22,11 @@
   </ul>
 </div>
 <div id="myTabContent">
-  <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <%= turbo_frame_tag company do %>
-      <%= form_with model: company, url: (company.persisted? ? [:account, company] : [:account, @team, :companies]), local: true, class: 'form', data:{controller:'companies',companies_company_value:company.id} do |form| %>
+
+
+<div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="grid grid-cols-2 gap-3 ">
+      <div class="bg-blue-100 p-5">
         <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
           <%= render 'account/shared/forms/errors', form: form %>
           <% with_field_settings form: form do %>
@@ -43,18 +37,27 @@
             </div>
             <%# 🚅 super scaffolding will insert new fields above this line. %>
           <% end %>
-          <h4>Addresses</h4>
-          <div id="postal_addresses">
-            <%= render partial: 'postal_address', collection: company.postal_addresses %>
-          </div>
-          <div><%= link_to "Add New Address", postal_address_field_account_team_companies_path(company), data:{turbo_stream:true} %></div>
-          <div class="buttons">
-            <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-            <%= link_to t('global.buttons.cancel'), cancel_path, class: "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" %>
-          </div>
+
+
         <% end %>
-      <% end %>
-    <% end %>
+      </div>
+      <div class="bg-red-100  p-5">
+        <div class="border-b border-gray-200 pb-5">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Job Postings</h3>
+        </div>
+
+        <div id="postal_addresses">
+
+          <%= render partial: 'postal_address', collection: company.postal_addresses %>
+        </div>
+        <%= link_to "Add New Address", postal_address_field_account_team_companies_path(company), data:{turbo_stream:true},class:'btn btn-primary' %>
+
+        <div></div>
+      </div>
+    </div>
+
+
+
   </div>
   <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
     <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
@@ -66,4 +69,10 @@
     <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
   </div>
 </div>
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" %>
+    </div>
+    <% end %>
+  <% end %>
 
