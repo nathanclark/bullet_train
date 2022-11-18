@@ -105,5 +105,7 @@ lsof -i :3000 | awk '{system("kill -9 " $2)}' && rm tmp/pids/server.pid
 
 
 rails g model Contact company:references team:references contact_type first_name last_name title email fax_number cell_number work_number social_link cloudinary_image company_role
+bin/super-scaffold crud Contact Company,Team contact_type first_name:text_field last_name:text_field title:text_field email:email_field fax_number:phone_field cell_number:phone_field work_number:phone_field social_link:text_field cloudinary_image:cloudinary_image company_role:text_field 
+
 
       
