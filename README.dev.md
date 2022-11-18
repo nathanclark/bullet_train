@@ -101,6 +101,9 @@ rails g migration AddFieldsToEmployees email:string ssn:string zip_code:string t
 
 rails g migration AddEEOReportingToEmployee eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:integer
  rails g migration AddDirectReportsToEmployees manager_id:integer
+lsof -i :3000 | awk '{system("kill -9 " $2)}' && rm tmp/pids/server.pid   
 
+
+rails g model Contact company:references team:references contact_type first_name last_name title email fax_number cell_number work_number social_link cloudinary_image company_role
 
       

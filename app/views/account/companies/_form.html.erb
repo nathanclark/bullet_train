@@ -1,8 +1,15 @@
 <% cancel_path ||= company.persisted? ? [:account, company] : [:account, @team, :companies] %>
 <%= turbo_frame_tag company do %>
   <%= form_with model: company, url: (company.persisted? ? [:account, company] : [:account, @team, :companies]), local: true, class: 'form', data:{controller:'companies',companies_company_value:company.id} do |form| %>
-
-
+    <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+      <%= render 'account/shared/forms/errors', form: form %>
+      <% with_field_settings form: form do %>
+        <div class="grid grid-cols-1 gap-2">
+          <%= render 'shared/fields/text_field', method: :name, options: {autofocus: true} %>
+          <span class="label-text-alt">The legal name will be used for payroll and tax forms</span>
+        </div>
+        <%# 🚅 super scaffolding will insert new fields above this line. %>
+      <% end %>
     <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
   <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
     <li class="mr-2" role="presentation">
@@ -24,33 +31,36 @@
 <div id="myTabContent">
 
 
-<div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+<div class="border-solid p-4 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
     <div class="grid grid-cols-2 gap-3 ">
-      <div class="bg-blue-100 p-5">
-        <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
-          <%= render 'account/shared/forms/errors', form: form %>
+      <div class="pr-5">
+
           <% with_field_settings form: form do %>
-            <div class="grid grid-cols-3 gap-2">
-              <%= render 'shared/fields/text_field', method: :name, options: {autofocus: true} %>
+            <div class="grid grid-cols-1 gap-2">
               <%= render 'shared/fields/text_field', method: :legal_name %>
-              <%= render 'shared/fields/text_field', method: :ein %>
+              <span class="label-text-alt">The legal name will be used for payroll and tax forms</span>
             </div>
+          <div class="grid grid-cols-1 gap-2 py-5">
+            <%= render 'shared/fields/text_field', method: :ein %>
+            <span class="label-text-alt">An Employer Identification Number (EIN) is also known as a federal tax identification number, and is used to identify a business entity.</span>
+
+          </div>
             <%# 🚅 super scaffolding will insert new fields above this line. %>
           <% end %>
 
 
         <% end %>
       </div>
-      <div class="bg-red-100  p-5">
-        <div class="border-b border-gray-200 pb-5">
-          <h3 class="text-lg font-medium leading-6 text-gray-900">Job Postings</h3>
+      <div class=" py-5 px-5 border-solid border shadow-md border-slate-300 rounded-lg ">
+        <div class="border-gray-200 pb-5">
+          <h2 class="text-lg font-medium leading-6 text-gray-900">Addresses  <span class="float-right"><%= link_to "Add New Address", postal_address_field_account_team_companies_path(company), data:{turbo_stream:true},class:' left-0 top-0  btn btn-primary btn-xs text-right' %></span></h2>
         </div>
 
         <div id="postal_addresses">
 
           <%= render partial: 'postal_address', collection: company.postal_addresses %>
         </div>
-        <%= link_to "Add New Address", postal_address_field_account_team_companies_path(company), data:{turbo_stream:true},class:'btn btn-primary' %>
+        lsof -i :3000 | awk '{system("kill -9 " $2)}'
 
         <div></div>
       </div>

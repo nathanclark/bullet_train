@@ -32,7 +32,7 @@ en:
         label: *legal_name
         heading: *legal_name
       ein:
-        _: &ein Ein
+        _: &ein EIN
         label: *ein
         heading: *ein
       # 🚅 super scaffolding will insert new fields above this line.

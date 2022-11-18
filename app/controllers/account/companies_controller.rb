@@ -63,8 +63,11 @@ class Account::CompaniesController < Account::ApplicationController
   end
 
   def postal_address_field
-    puts 'ss'
-    #render layout: false
+    puts 's'
+  end
+
+  def remove_postal_address_field
+    puts 's'
   end
   private
 
@@ -77,7 +80,6 @@ class Account::CompaniesController < Account::ApplicationController
     [:street1,:street2,:city,:state,:zipcode]
   end
   def process_params(strong_params)
-    puts 'test'
     # 🚅 super scaffolding will insert processing for new fields above this line.
   end
 end

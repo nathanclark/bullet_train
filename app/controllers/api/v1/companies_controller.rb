@@ -42,7 +42,7 @@ class Api::V1::CompaniesController < Api::V1::ApplicationController
         :name,
         :legal_name,
         :ein,
-        postal_addresses_attributes:[:id,:address_type,:street1,:street2,:city,:state,:zipcode]
+        postal_addresses_attributes:[:id,:address_type,:street1,:street2,:city,:state,:zipcode,:_destroy]
       )
       process_params(strong_params)
       strong_params

@@ -1,6 +1,4 @@
-<%= turbo_stream.prepend 'postal_addresses' do %>
-  <div class="animate__animated animate__bounce">
+<%= turbo_stream.remove turbo_stream.remove 'postal_addresses' do %>
     <%= render partial: 'account/companies/postal_address', locals:{postal_address: PostalAddress.new} %>
-  </div>
 
 <% end %>

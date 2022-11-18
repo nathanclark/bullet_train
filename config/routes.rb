@@ -68,8 +68,10 @@ Rails.application.routes.draw do
         end
 
         resources :companies do
+
           collection do
             get "postal_address_field"
+            get '/remove_postal_address_field/:id', to: 'companies#remove_postal_address_field'
           end
           resources :postal_addresses, only: [], param: :index do
             member do
