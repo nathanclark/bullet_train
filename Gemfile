@@ -178,3 +178,6 @@ gem "sidekiq", "~> 6.0"
 # 🚅 super scaffolding will insert new oauth providers above this line.
 gem 'requestjs-rails'
 gem "importmap-rails", "~> 1.1"
+source "https://OSetO-n08J3WQhgjynm5J49kifxM36ZQ@gem.fury.io/bullettrain" do
+  gem "bullet_train-action_models"
+end
