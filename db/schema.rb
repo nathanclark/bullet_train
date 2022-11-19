@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_19_040458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,7 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
 
   create_table "contacts", force: :cascade do |t|
     t.bigint "company_id", null: false
-    t.bigint "team_id", null: false
     t.string "contact_type"
     t.string "first_name"
     t.string "last_name"
@@ -88,7 +87,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
-    t.index ["team_id"], name: "index_contacts_on_team_id"
   end
 
   create_table "integrations_stripe_installations", force: :cascade do |t|
@@ -109,6 +107,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "team_id"
     t.index ["team_id"], name: "index_invitations_on_team_id"
+  end
+
+  create_table "ledger_accounts", force: :cascade do |t|
+    t.string "title"
+    t.bigint "company_id", null: false
+    t.string "ledger_account_number"
+    t.string "account_type"
+    t.string "account_status"
+    t.string "posting_type"
+    t.string "alternate_account_number"
+    t.boolean "visible"
+    t.boolean "reporting_excluded"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_ledger_accounts_on_company_id"
   end
 
   create_table "memberships", id: :serial, force: :cascade do |t|
@@ -379,10 +393,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "companies", "teams"
   add_foreign_key "contacts", "companies"
-  add_foreign_key "contacts", "teams"
   add_foreign_key "integrations_stripe_installations", "oauth_stripe_accounts"
   add_foreign_key "integrations_stripe_installations", "teams"
   add_foreign_key "invitations", "teams"
+  add_foreign_key "ledger_accounts", "companies"
   add_foreign_key "memberships", "invitations"
   add_foreign_key "memberships", "memberships", column: "added_by_id"
   add_foreign_key "memberships", "oauth_applications", column: "platform_agent_of_id"

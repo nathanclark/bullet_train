@@ -21,6 +21,7 @@ components:
     <%= automatic_components_for Company %>
     <%= automatic_components_for PostalAddress %>
     <%= automatic_components_for Contact %>
+    <%= automatic_components_for LedgerAccount %>
     <%# 🚅 super scaffolding will insert new components above this line. %>
   parameters:
     id:
@@ -38,4 +39,5 @@ paths:
   <%= automatic_paths_for Company, Team %>
   <%= automatic_paths_for PostalAddress, Company %>
   <%= automatic_paths_for Contact, Company %>
+  <%= automatic_paths_for LedgerAccount, Company %>
   <%# 🚅 super scaffolding will insert new paths above this line. %>

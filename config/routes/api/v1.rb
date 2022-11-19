@@ -34,6 +34,7 @@ shallow do
       resources :companies do
         resources :postal_addresses
         resources :contacts
+        resources :ledger_accounts
       end
     end
   end

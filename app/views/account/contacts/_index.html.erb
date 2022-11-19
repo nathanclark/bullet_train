@@ -25,14 +25,7 @@
                 <th><%= t('.fields.contact_type.heading') %></th>
                 <th><%= t('.fields.first_name.heading') %></th>
                 <th><%= t('.fields.last_name.heading') %></th>
-                <th><%= t('.fields.title.heading') %></th>
                 <th><%= t('.fields.email.heading') %></th>
-                <th><%= t('.fields.fax_number.heading') %></th>
-                <th><%= t('.fields.cell_number.heading') %></th>
-                <th><%= t('.fields.work_number.heading') %></th>
-                <th><%= t('.fields.social_link.heading') %></th>
-                <th><%= t('.fields.cloudinary_image.heading') %></th>
-                <th><%= t('.fields.company_role.heading') %></th>
                 <%# 🚅 super scaffolding will insert new field headers above this line. %>
                 <th><%= t('.fields.created_at.heading') %></th>
                 <th class="text-right"></th>
@@ -46,14 +39,7 @@
                     <td><%= render 'shared/attributes/option', attribute: :contact_type, url: [:account, contact] %></td>
                     <td><%= render 'shared/attributes/text', attribute: :first_name %></td>
                     <td><%= render 'shared/attributes/text', attribute: :last_name %></td>
-                    <td><%= render 'shared/attributes/text', attribute: :title %></td>
                     <td><%= render 'shared/attributes/email', attribute: :email %></td>
-                    <td><%= render 'shared/attributes/phone_number', attribute: :fax_number %></td>
-                    <td><%= render 'shared/attributes/phone_number', attribute: :cell_number %></td>
-                    <td><%= render 'shared/attributes/phone_number', attribute: :work_number %></td>
-                    <td><%= render 'shared/attributes/text', attribute: :social_link %></td>
-                    <td><%= render 'shared/attributes/image', attribute: :cloudinary_image %></td>
-                    <td><%= render 'shared/attributes/text', attribute: :company_role %></td>
                     <%# 🚅 super scaffolding will insert new fields above this line. %>
                     <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
                     <td class="buttons">

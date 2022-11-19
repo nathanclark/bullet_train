@@ -1,0 +1,136 @@
+en:
+  ledger_accounts: &ledger_accounts
+    label: &label Ledger Accounts
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Ledger Account
+      create: Create Ledger Account
+      edit: Edit Ledger Account
+      update: Update Ledger Account
+      destroy: Remove Ledger Account
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{ledger_account_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Ledger Account ID
+      company_id:
+        heading: Company ID
+      title:
+        _: &title Title
+        label: *title
+        heading: *title
+      ledger_account_number:
+        _: &ledger_account_number Ledger Account Number
+        label: *ledger_account_number
+        heading: *ledger_account_number
+      account_type:
+        _: &account_type Account Type
+        label: *account_type
+        heading: *account_type
+        placeholder: None
+        options:
+          assets: Assets
+          liabilities: Liabilities
+          income: Income
+          expense: Liabilities
+          capital: Income
+      account_status:
+        _: &account_status Account Status
+        label: *account_status
+        heading: *account_status
+        placeholder: None
+        options:
+          active: Active
+          inactive: Inactive
+      posting_type:
+        _: &posting_type Posting Type
+        label: *posting_type
+        heading: *posting_type
+        placeholder: None
+        options:
+          debit: Debit
+          credit: Credit
+      alternate_account_number:
+        _: &alternate_account_number Alternate Account Number
+        label: *alternate_account_number
+        heading: *alternate_account_number
+      parent_id: &parent
+        _: &parent_id Parent
+        label: *parent_id
+        heading: *parent_id
+        placeholder: None
+      parent: *parent
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Ledger Accounts"
+      index: "List Ledger Accounts"
+      create: "Add a New Ledger Account"
+      member_actions: "Actions for an Individual Ledger Account"
+      show: "Retrieve a Ledger Account"
+      update: "Update a Ledger Account"
+      destroy: "Delete a Ledger Account"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Ledger Accounts"
+      contexts:
+        company:
+          header: Ledger Accounts
+          description: Below is a list of Ledger Accounts that have been added for %{company_name}.
+          description_empty: No Ledger Accounts have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{ledger_account_name}"
+      header: Ledger Account Details
+      description: Below are the details we have for %{ledger_account_name}.
+      manage_description: You'll also find options for updating these details or removing %{ledger_account_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Ledger Account for %{company_name}"
+      header: New Ledger Account Details
+      description: Please provide the details of the new Ledger Account you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{ledger_account_name}"
+      header: Edit Ledger Account Details
+      description: You can update the details or settings for %{ledger_account_name} below.
+      form: *form
+    notifications:
+      created: Ledger Account was successfully created.
+      updated: Ledger Account was successfully updated.
+      destroyed: Ledger Account was successfully destroyed.
+  account:
+    ledger_accounts: *ledger_accounts
+  activerecord:
+    attributes:
+      ledger_account:
+        title: *title
+        ledger_account_number: *ledger_account_number
+        account_type: *account_type
+        account_status: *account_status
+        posting_type: *posting_type
+        alternate_account_number: *alternate_account_number
+        parent_id: *parent_id
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

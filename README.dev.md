@@ -12,7 +12,7 @@ name:text_field legal_name:text_field ein:text_field
 
 rails g model LedgerAccount title company:references ledger_account_number:string account_type account_status posting_type alternate_account_number visible:boolean reporting_excluded:boolean  parent_id:integer
 
-bin/super-scaffold crud LedgerAccount Ledger,Team ledger_account_number:text_field account_type:text_field account_status:text_field posting_type:text_field alternate_account_number:text_field  parent_id:super_select{class_name=LedgerAccount}
+bin/super-scaffold crud LedgerAccount Company,Team title:text_field ledger_account_number:text_field account_type:super_select account_status:super_select posting_type:super_select alternate_account_number:text_field  parent_id:super_select{class_name=LedgerAccount}
 bin/super-scaffold crud JournalEntryDetail JournalEntry amount:text_field description:text_area ledger_account_id:super_select{class_name=LedgerAccount}
 
 rails g model Vendor team:references name:string vendor_number:string is_payee:boolean address1:string address2:string city:string region:string zip_code:string phone_number:string ledger_account:references
