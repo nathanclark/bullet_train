@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :contact do
-    company { nil }
+    association :company
     team { nil }
     contact_type { "MyString" }
     first_name { "MyString" }

@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend 'contact_list' do %>
+  <div class="animate__animated animate__bounce">
+    <%= render partial: 'account/companies/contact', locals:{ contact: Contact.new} %>
+  </div>
+
+<% end %>

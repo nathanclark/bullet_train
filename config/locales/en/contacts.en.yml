@@ -1,0 +1,144 @@
+en:
+  contacts: &contacts
+    label: &label Contacts
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Contact
+      create: Create Contact
+      edit: Edit Contact
+      update: Update Contact
+      destroy: Remove Contact
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{contact_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Contact ID
+      company_id:
+        heading: Company ID
+      contact_type:
+        _: &contact_type Contact Type
+        label: *contact_type
+        heading: *contact_type
+        placeholder: Select
+        options:
+          one: Account Owner
+          two: Sales
+          three: Billing
+      first_name:
+        _: &first_name First Name
+        label: *first_name
+        heading: *first_name
+      last_name:
+        _: &last_name Last Name
+        label: *last_name
+        heading: *last_name
+      title:
+        _: &title Title
+        label: *title
+        heading: *title
+      email:
+        _: &email Email
+        label: *email
+        heading: *email
+      fax_number:
+        _: &fax_number Fax Number
+        label: *fax_number
+        heading: *fax_number
+      cell_number:
+        _: &cell_number Cell Number
+        label: *cell_number
+        heading: *cell_number
+      work_number:
+        _: &work_number Work Number
+        label: *work_number
+        heading: *work_number
+      social_link:
+        _: &social_link Social Link
+        label: *social_link
+        heading: *social_link
+      cloudinary_image:
+        _: &cloudinary_image Cloudinary Image
+        label: *cloudinary_image
+        heading: *cloudinary_image
+      company_role:
+        _: &company_role Company Role
+        label: *company_role
+        heading: *company_role
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Contacts"
+      index: "List Contacts"
+      create: "Add a New Contact"
+      member_actions: "Actions for an Individual Contact"
+      show: "Retrieve a Contact"
+      update: "Update a Contact"
+      destroy: "Delete a Contact"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Contacts"
+      contexts:
+        company:
+          header: Contacts
+          description: Below is a list of Contacts that have been added for %{company_name}.
+          description_empty: No Contacts have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{contact_name}"
+      header: Contact Details
+      description: Below are the details we have for %{contact_name}.
+      manage_description: You'll also find options for updating these details or removing %{contact_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Contact for %{company_name}"
+      header: New Contact Details
+      description: Please provide the details of the new Contact you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{contact_name}"
+      header: Edit Contact Details
+      description: You can update the details or settings for %{contact_name} below.
+      form: *form
+    notifications:
+      created: Contact was successfully created.
+      updated: Contact was successfully updated.
+      destroyed: Contact was successfully destroyed.
+  account:
+    contacts: *contacts
+  activerecord:
+    attributes:
+      contact:
+        contact_type: *contact_type
+        first_name: *first_name
+        last_name: *last_name
+        title: *title
+        email: *email
+        fax_number: *fax_number
+        cell_number: *cell_number
+        work_number: *work_number
+        social_link: *social_link
+        cloudinary_image: *cloudinary_image
+        company_role: *company_role
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

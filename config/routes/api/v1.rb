@@ -33,6 +33,7 @@ shallow do
 
       resources :companies do
         resources :postal_addresses
+        resources :contacts
       end
     end
   end

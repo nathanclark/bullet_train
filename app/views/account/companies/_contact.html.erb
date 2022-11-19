@@ -1,0 +1,64 @@
+<% contact_id = Time.now.to_i %>
+<div id='contact_<%= contact_id %>' class="card bg-slate-100 border-solid border mb-5">
+  <div class="card-body">
+
+    <%= fields_for "company[contacts_attributes][#{(contact.persisted?) ? contact.id : contact_id}]", contact do |ff| %>
+
+      <%= ff.hidden_field :id %>
+      <%= render 'shared/fields/super_select', form: ff, method: :contact_type %>
+      <div class="divider"></div>
+      <div class="grid grid-cols-1 gap-y gap-x sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/text_field', form: ff, method: :first_name %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/text_field', form: ff, method: :last_name %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-y gap-x sm:grid-cols-3">
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/text_field', form: ff, method: :title %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/email_field', form: ff,method: :email %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/text_field', form: ff,method: :company_role %>
+
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-y gap-x sm:grid-cols-3">
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/phone_field', form: ff,method: :fax_number %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/phone_field', form: ff,method: :cell_number %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/phone_field',form: ff, method: :work_number %>
+
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-y gap-x sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/cloudinary_image', form: ff,method: :cloudinary_image %>
+        </div>
+        <div class="sm:col-span-1">
+          <%= render 'shared/fields/text_field', form: ff,method: :social_link %>
+        </div>
+
+      </div>
+
+
+
+
+
+    <% end %>
+    <a class="btn btn-xs btn-outline btn-secondary" onclick="document.getElementById('contact_<%= contact_id %>').remove()">Remove</a>
+  </div>
+
+</div>
+
+
+

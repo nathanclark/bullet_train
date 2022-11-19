@@ -2,8 +2,8 @@ default:
   models:
     PostalAddress: read
     Company: read
-    Company: read
     Team: read
+    Contact: read
     Membership:
       - read
       - search
@@ -33,8 +33,8 @@ admin:
   models:
     PostalAddress: manage
     Company: manage
-    Company: manage
     Team: manage
+    Contact: manage
     Membership: manage
     Scaffolding::AbsolutelyAbstract::CreativeConcept: manage
     Platform::Application: manage

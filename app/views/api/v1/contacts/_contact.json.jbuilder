@@ -1,0 +1,17 @@
+json.extract! contact,
+  :id,
+  :company_id,
+  :contact_type,
+  :first_name,
+  :last_name,
+  :title,
+  :email,
+  :fax_number,
+  :cell_number,
+  :work_number,
+  :social_link,
+  :cloudinary_image,
+  :company_role,
+  # 🚅 super scaffolding will insert new fields above this line.
+  :created_at,
+  :updated_at

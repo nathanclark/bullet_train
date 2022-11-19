@@ -10,7 +10,7 @@ rails g PostalAddress company:references address_type:string street1:string stre
 bin/super-scaffold crud PostalAddress Company,Team address_type:text_field street1:text_field street2:text_field city:text_field state:text_field zipcode:text_field
 name:text_field legal_name:text_field ein:text_field
 
-rails g model LedgerAccount team:references ledger_account_number:string account_types:integer account_statuses:integer posting_types:integer alternate_account_number:string visible:boolean reporting_excluded:boolean  parent_id:integer
+rails g model LedgerAccount title company:references ledger_account_number:string account_type account_status posting_type alternate_account_number visible:boolean reporting_excluded:boolean  parent_id:integer
 
 bin/super-scaffold crud LedgerAccount Ledger,Team ledger_account_number:text_field account_type:text_field account_status:text_field posting_type:text_field alternate_account_number:text_field  parent_id:super_select{class_name=LedgerAccount}
 bin/super-scaffold crud JournalEntryDetail JournalEntry amount:text_field description:text_area ledger_account_id:super_select{class_name=LedgerAccount}
@@ -105,7 +105,7 @@ lsof -i :3000 | awk '{system("kill -9 " $2)}' && rm tmp/pids/server.pid
 
 
 rails g model Contact company:references team:references contact_type first_name last_name title email fax_number cell_number work_number social_link cloudinary_image company_role
-bin/super-scaffold crud Contact Company,Team contact_type first_name:text_field last_name:text_field title:text_field email:email_field fax_number:phone_field cell_number:phone_field work_number:phone_field social_link:text_field cloudinary_image:cloudinary_image company_role:text_field 
+bin/super-scaffold crud Contact Company,Team contact_type:super_select first_name:text_field last_name:text_field title:text_field email:email_field fax_number:phone_field cell_number:phone_field work_number:phone_field social_link:text_field cloudinary_image:cloudinary_image company_role:text_field 
 
 
       

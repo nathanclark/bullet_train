@@ -18,6 +18,7 @@ class Account::CompaniesController < Account::ApplicationController
   def new
     @company.id = Time.now.to_i
     @company.postal_addresses.build()
+    @company.contacts.build()
   end
 
   # GET /account/companies/:id/edit
@@ -27,6 +28,9 @@ class Account::CompaniesController < Account::ApplicationController
   # POST /account/teams/:team_id/companies
   # POST /account/teams/:team_id/companies.json
   def create
+    unless @company.id
+      @company.id = Time.now.to_i
+    end
     respond_to do |format|
       if @company.save
         format.html { redirect_to [:account, @team, :companies], notice: I18n.t("companies.notifications.created") }
@@ -66,9 +70,11 @@ class Account::CompaniesController < Account::ApplicationController
     puts 's'
   end
 
-  def remove_postal_address_field
+  def contact_field
     puts 's'
   end
+
+
   private
 
   include strong_parameters_from_api

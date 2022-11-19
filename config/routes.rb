@@ -70,6 +70,8 @@ Rails.application.routes.draw do
         resources :companies do
 
           collection do
+            get "contact_field"
+            get '/remove_contact_field/:id', to: 'companies#remove_contact_field'
             get "postal_address_field"
             get '/remove_postal_address_field/:id', to: 'companies#remove_postal_address_field'
           end
@@ -79,6 +81,8 @@ Rails.application.routes.draw do
               post '/' => "postal_addresses#create"
             end
           end
+
+          resources :contacts
         end
       end
     end

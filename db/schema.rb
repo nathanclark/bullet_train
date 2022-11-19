@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_200900) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_200655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_200900) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_companies_on_team_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "team_id", null: false
+    t.string "contact_type"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "title"
+    t.string "email"
+    t.string "fax_number"
+    t.string "cell_number"
+    t.string "work_number"
+    t.string "social_link"
+    t.string "cloudinary_image"
+    t.string "company_role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_contacts_on_company_id"
+    t.index ["team_id"], name: "index_contacts_on_team_id"
   end
 
   create_table "integrations_stripe_installations", force: :cascade do |t|
@@ -358,6 +378,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_200900) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "companies", "teams"
+  add_foreign_key "contacts", "companies"
+  add_foreign_key "contacts", "teams"
   add_foreign_key "integrations_stripe_installations", "oauth_stripe_accounts"
   add_foreign_key "integrations_stripe_installations", "teams"
   add_foreign_key "invitations", "teams"

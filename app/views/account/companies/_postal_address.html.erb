@@ -1,9 +1,9 @@
 <% address_id = Time.now.to_i %>
-<div id='<%= address_id %>' class="card bg-slate-100 border-solid border mb-5">
+<div id='address_<%= address_id %>' class="card bg-slate-100 border-solid border mb-5">
   <div class="card-body">
 
     <%= fields_for "company[postal_addresses_attributes][#{(postal_address.persisted?) ? postal_address.id : address_id}]", postal_address do |ff| %>
-      <a onclick="document.getElementById('<%= address_id %>').remove()">Remove</a>
+
       <%= ff.hidden_field :id %>
       <%= render 'shared/fields/super_select', form: ff, method: :address_type %>
       <div class="divider"></div>
@@ -29,6 +29,8 @@
         </div>
       </div>
     <% end %>
+    <br>
+    <a class=' left-0 top-0  btn  btn-xs text-right' onclick="document.getElementById('address_<%= address_id %>').remove()">Remove</a>
   </div>
 </div>
 

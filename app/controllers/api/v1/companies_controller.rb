@@ -42,7 +42,8 @@ class Api::V1::CompaniesController < Api::V1::ApplicationController
         :name,
         :legal_name,
         :ein,
-        postal_addresses_attributes:[:id,:address_type,:street1,:street2,:city,:state,:zipcode,:_destroy]
+        postal_addresses_attributes:[:id,:address_type,:street1,:street2,:city,:state,:zipcode,:_destroy],
+        contacts_attributes:[:id,:contact_type,:first_name,:last_name,:title,:email,:fax_number,:cell_number,:work_number,:social_link,:cloudinary_image,:company_role,:_destroy]
       )
       process_params(strong_params)
       strong_params
