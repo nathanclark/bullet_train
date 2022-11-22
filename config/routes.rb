@@ -84,6 +84,12 @@ Rails.application.routes.draw do
 
           resources :contacts
           resources :ledger_accounts
+          resources :ledger_entries do
+            collection do
+              get "ledger_entry_detail_field"
+            end
+            resources :ledger_entry_details
+          end
         end
       end
     end

@@ -9,7 +9,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "@hotwired/turbo-rails"
 import "./controllers"
 import "./channels"
-
+import "./support/kendo-ui/kendo.all.min"
+require("./support/kendo-ui-license")
 Rails.start()
 ActiveStorage.start()
 
@@ -35,3 +36,5 @@ import "./electron"
 // conflicts in the future when Rails or Bullet Train update their own default includes.
 import "@rails/request.js"
 import "./support/flowbite"
+
+

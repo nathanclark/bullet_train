@@ -14,4 +14,6 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :ledger_accounts, allow_destroy: true, reject_if: :all_blank
   validates_associated :ledger_accounts
 
+  has_many :ledger_entries, enable_updates: true
+
 end

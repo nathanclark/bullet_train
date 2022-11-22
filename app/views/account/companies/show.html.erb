@@ -34,6 +34,7 @@
     <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
     <%= render 'account/contacts/index', contacts: @company.contacts, hide_back: true %>
     <%= render 'account/ledger_accounts/index', ledger_accounts: @company.ledger_accounts, hide_back: true %>
+    <%= render 'account/ledger_entries/index', ledger_entries: @company.ledger_entries, hide_back: true %>
     <%# 🚅 super scaffolding will insert new children above this line. %>
   <% end %>
 <% end %>

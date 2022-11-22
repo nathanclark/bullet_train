@@ -1,5 +1,9 @@
 default:
   models:
+    LedgerEntryDetail: read
+    LedgerEntryDetail: read
+    LedgerEntry: read
+    LedgerEntry: read
     LedgerAccount: read
     PostalAddress: read
     Company: read
@@ -32,6 +36,10 @@ admin:
     - admin
     - editor
   models:
+    LedgerEntryDetail: manage
+    LedgerEntryDetail: manage
+    LedgerEntry: manage
+    LedgerEntry: manage
     LedgerAccount: manage
     PostalAddress: manage
     Company: manage

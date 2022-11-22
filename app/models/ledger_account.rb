@@ -9,7 +9,6 @@ class LedgerAccount < ApplicationRecord
   # 🚅 add belongs_to associations above.
 
   # 🚅 add has_many associations above.
-
   has_one :team, through: :company
   # 🚅 add has_one associations above.
 

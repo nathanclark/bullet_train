@@ -35,6 +35,9 @@ shallow do
         resources :postal_addresses
         resources :contacts
         resources :ledger_accounts
+        resources :ledger_entries do
+          resources :ledger_entry_details
+        end
       end
     end
   end
