@@ -1,0 +1,10 @@
+<% if can? :read, LedgerEntryDetail.new(team: current_team) %>
+  <%= render 'account/shared/menu/item', {
+    url: main_app.polymorphic_path([:account, current_team, :ledger_entry_details]),
+    label: t('ledger_entry_details.navigation.label'),
+  } do |p| %>
+    <% p.content_for :icon do %>
+      <i class="<%= t('ledger_entry_details.navigation.icon') %>"></i>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+<%= turbo_stream.remove turbo_stream.remove 'ledger_entry_details' do %>
+    <%= render partial: 'ledger_entry_detail', locals:{ledger_entry_detail: LedgerEntryDetail.new} %>
+
+<% end %>

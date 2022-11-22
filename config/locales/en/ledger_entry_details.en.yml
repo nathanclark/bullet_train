@@ -1,0 +1,109 @@
+en:
+  ledger_entry_details: &ledger_entry_details
+    label: &label Ledger Entry Details
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Ledger Entry Detail
+      create: Create Ledger Entry Detail
+      edit: Edit Ledger Entry Detail
+      update: Update Ledger Entry Detail
+      destroy: Remove Ledger Entry Detail
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{ledger_entry_detail_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Ledger Entry Detail ID
+      ledger_entry_id:
+        heading: Ledger Entry ID
+      order_number:
+        _: &order_number Order Number
+        label: *order_number
+        heading: *order_number
+      amount:
+        _: &amount Amount
+        label: *amount
+        heading: *amount
+      note:
+        _: &note Note
+        label: *note
+        heading: *note
+      ledger_account:
+        _: &ledger_account Ledger Account
+        label: *ledger_account
+        heading: *ledger_account
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Ledger Entry Details"
+      index: "List Ledger Entry Details"
+      create: "Add a New Ledger Entry Detail"
+      member_actions: "Actions for an Individual Ledger Entry Detail"
+      show: "Retrieve a Ledger Entry Detail"
+      update: "Update a Ledger Entry Detail"
+      destroy: "Delete a Ledger Entry Detail"
+      fields: *fields
+    index:
+      section: "%{ledger_entries_possessive} Ledger Entry Details"
+      contexts:
+        ledger_entry:
+          header: Ledger Entry Details
+          description: Below is a list of Ledger Entry Details that have been added for %{ledger_entry_name}.
+          description_empty: No Ledger Entry Details have been added for %{ledger_entry_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{ledger_entry_detail_name}"
+      header: Ledger Entry Detail Details
+      description: Below are the details we have for %{ledger_entry_detail_name}.
+      manage_description: You'll also find options for updating these details or removing %{ledger_entry_detail_name} from %{ledger_entry_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Ledger Entry Detail for %{ledger_entry_name}"
+      header: New Ledger Entry Detail Details
+      description: Please provide the details of the new Ledger Entry Detail you'd like to add to %{ledger_entry_name}.
+      form: *form
+    edit:
+      section: "%{ledger_entry_detail_name}"
+      header: Edit Ledger Entry Detail Details
+      description: You can update the details or settings for %{ledger_entry_detail_name} below.
+      form: *form
+    notifications:
+      created: Ledger Entry Detail was successfully created.
+      updated: Ledger Entry Detail was successfully updated.
+      destroyed: Ledger Entry Detail was successfully destroyed.
+  account:
+    ledger_entry_details: *ledger_entry_details
+  activerecord:
+    attributes:
+      ledger_entry_detail:
+        order_number: *order_number
+        amount: *amount
+        note: *note
+        ledger_account: *ledger_account
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

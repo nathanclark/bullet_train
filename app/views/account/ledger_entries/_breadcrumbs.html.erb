@@ -1,0 +1,8 @@
+<% ledger_entry ||= @ledger_entry %>
+<% company ||= @company || ledger_entry&.company %>
+<%= render 'account/companies/breadcrumbs', company: company %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, company, :ledger_entries] %>
+<% if ledger_entry&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: ledger_entry.label_string, url: [:account, ledger_entry] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'ledger_entries' %>

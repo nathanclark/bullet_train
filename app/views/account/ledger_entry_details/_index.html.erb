@@ -1,0 +1,89 @@
+<% ledger_entry = @ledger_entry || @ledger_entry %>
+<% context ||= ledger_entry %>
+<% collection ||= :ledger_entry_details %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% ledger_entry_details = ledger_entry_details.order(:id) unless has_order?(ledger_entry_details) %>
+<% pagy, ledger_entry_details = pagy(ledger_entry_details, page_param: :ledger_entry_details_page) %>
+
+<%= action_model_select_controller do %>
+  <%= updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless ledger_entry_details.any?}") %>
+        <%= render "shared/limits/index", model: ledger_entry_details.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if ledger_entry_details.any? %>
+          <div data-controller="ledger_entry_details">
+          <table class="table">
+            <thead>
+              <tr>
+                <%= render "shared/tables/select_all" %>
+                <th><%= t('.fields.order_number.heading') %></th>
+                <th><%= t('.fields.amount.heading') %></th>
+                <th><%= t('.fields.note.heading') %></th>
+                <th><%= t('.fields.ledger_account.heading') %></th>
+                <%# 🚅 super scaffolding will insert new field headers above this line. %>
+                <th><%= t('.fields.created_at.heading') %></th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% ledger_entry_details.each do |ledger_entry_detail| %>
+                <% with_attribute_settings object: ledger_entry_detail do %>
+                  <tr data-id="<%= ledger_entry_detail.id %>">
+                    <%= render "shared/tables/checkbox", object: ledger_entry_detail %>
+                    <td><%= render 'shared/attributes/text', attribute: :order_number, url: [:account, ledger_entry_detail] %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :amount %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :note %></td>
+                    <td><%= ledger_entry_detail.ledger_account.title %></td>
+                    <%# 🚅 super scaffolding will insert new fields above this line. %>
+                    <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
+                    <td class="buttons">
+                      <% unless hide_actions %>
+                        <% if can? :edit, ledger_entry_detail %>
+                          <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, ledger_entry_detail], class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <% if can? :destroy, ledger_entry_detail %>
+                          <%= button_to t('.buttons.shorthand.destroy'), [:account, ledger_entry_detail], method: :delete, data: { confirm: t('.buttons.confirmations.destroy', model_locales(ledger_entry_detail)) }, class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == ledger_entry %>
+            <% if can? :create, LedgerEntryDetail.new(ledger_entry: ledger_entry) %>
+              <%= link_to t('.buttons.new'), [:new, :account, ledger_entry, :ledger_entry_detail], class: "#{first_button_primary(:ledger_entry_detail)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:ledger_entry_detail)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

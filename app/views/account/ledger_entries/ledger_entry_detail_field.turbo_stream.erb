@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend 'ledger_entry_details' do %>
+  <div class="animate__animated animate__bounce">
+    <%= render partial: 'ledger_entry_detail', locals:{ledger_entry_detail: LedgerEntryDetail.new} %>
+  </div>
+
+<% end %>

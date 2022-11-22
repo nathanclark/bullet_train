@@ -1,0 +1,20 @@
+<% ledger_entry_detail_id = Time.now.to_i %>
+<div id='ledger_entry_detail_<%= ledger_entry_detail_id %>' class="card bg-slate-100 border-solid border mb-5">
+  <div class="card-body">
+
+    <%= fields_for "ledger_entry[ledger_entry_details_attributes][#{(ledger_entry_detail.persisted?) ? ledger_entry_detail.id : ledger_entry_detail_id}]", ledger_entry_detail do |ff| %>
+
+      <%= ff.hidden_field :id %>
+      <%= render 'shared/fields/text_field', form: ff,method: :order_number, options: {autofocus: true} %>
+      <%= render 'shared/fields/text_field', form: ff,method: :amount %>
+      <%= render 'shared/fields/text_field', form: ff,method: :note %>
+      <%= render 'shared/fields/super_select', form: ff,method: :ledger_account_id, options: {}, html_options: {},
+                 choices: ledger_entry_detail.valid_parents.map { |ledger_account| [ledger_account.label_string, ledger_account.id] } %>
+    <% end %>
+    <br>
+    <a class=' left-0 top-0  btn  btn-xs text-right' onclick="document.getElementById('ledger_entry_detail_<%= ledger_entry_detail_id %>').remove()">Remove</a>
+  </div>
+</div>
+
+
+

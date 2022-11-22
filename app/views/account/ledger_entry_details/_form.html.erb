@@ -1,0 +1,22 @@
+<% cancel_path ||= ledger_entry_detail.persisted? ? [:account, ledger_entry_detail] : [:account, @ledger_entry, :ledger_entry_details] %>
+
+<%= form_with model: ledger_entry_detail, url: (ledger_entry_detail.persisted? ? [:account, ledger_entry_detail] : [:account, @ledger_entry, :ledger_entry_details]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%#= form.hidden_field :ledger_entry_id %>
+      <%= render 'shared/fields/text_field', method: :order_number, options: {autofocus: true} %>
+      <%= render 'shared/fields/text_field', method: :amount %>
+      <%= render 'shared/fields/text_field', method: :note %>
+      <%= render 'shared/fields/super_select', method: :ledger_account_id, options: {}, html_options: {},
+                 choices: ledger_entry_detail.valid_parents.map { |ledger_account| [ledger_account.label_string, ledger_account.id] } %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

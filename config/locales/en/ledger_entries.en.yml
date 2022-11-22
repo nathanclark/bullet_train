@@ -1,0 +1,124 @@
+en:
+  ledger_entries: &ledger_entries
+    label: &label Ledger Entries
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Ledger Entry
+      create: Create Ledger Entry
+      edit: Edit Ledger Entry
+      update: Update Ledger Entry
+      destroy: Remove Ledger Entry
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{ledger_entry_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Ledger Entry ID
+      company_id:
+        heading: Company ID
+      post_date:
+        _: &post_date Post Date
+        label: *post_date
+        heading: *post_date
+      status:
+        _: &status Status
+        label: *status
+        heading: *status
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      note:
+        _: &note Note
+        label: *note
+        heading: *note
+      source_type:
+        _: &source_type Source Type
+        label: *source_type
+        heading: *source_type
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      fiscal_period:
+        _: &fiscal_period Fiscal Period
+        label: *fiscal_period
+        heading: *fiscal_period
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Ledger Entries"
+      index: "List Ledger Entries"
+      create: "Add a New Ledger Entry"
+      member_actions: "Actions for an Individual Ledger Entry"
+      show: "Retrieve a Ledger Entry"
+      update: "Update a Ledger Entry"
+      destroy: "Delete a Ledger Entry"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Ledger Entries"
+      contexts:
+        company:
+          header: Ledger Entries
+          description: Below is a list of Ledger Entries that have been added for %{company_name}.
+          description_empty: No Ledger Entries have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{ledger_entry_name}"
+      header: Ledger Entry Details
+      description: Below are the details we have for %{ledger_entry_name}.
+      manage_description: You'll also find options for updating these details or removing %{ledger_entry_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Ledger Entry for %{company_name}"
+      header: New Ledger Entry Details
+      description: Please provide the details of the new Ledger Entry you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{ledger_entry_name}"
+      header: Edit Ledger Entry Details
+      description: You can update the details or settings for %{ledger_entry_name} below.
+      form: *form
+    notifications:
+      created: Ledger Entry was successfully created.
+      updated: Ledger Entry was successfully updated.
+      destroyed: Ledger Entry was successfully destroyed.
+  account:
+    ledger_entries: *ledger_entries
+  activerecord:
+    attributes:
+      ledger_entry:
+        post_date: *post_date
+        status: *status
+        note: *note
+        source_type: *source_type
+        fiscal_period: *fiscal_period
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at
