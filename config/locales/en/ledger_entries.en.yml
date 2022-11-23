@@ -33,9 +33,9 @@ en:
         heading: *status
         placeholder: None
         options:
-          one: One
-          two: Two
-          three: Three
+          draft: Draft
+          posted: Posted
+          revered: Reversed
       note:
         _: &note Note
         label: *note
@@ -46,9 +46,10 @@ en:
         heading: *source_type
         placeholder: None
         options:
-          one: One
-          two: Two
-          three: Three
+          ap: Accounts Payable
+          ar: Accounts Receivable
+          manual: Manual Entry
+          payroll: Payroll
       fiscal_period:
         _: &fiscal_period Fiscal Period
         label: *fiscal_period

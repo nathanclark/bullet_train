@@ -38,7 +38,7 @@ class Api::V1::LedgerEntriesController < Api::V1::ApplicationController
     # Only allow a list of trusted parameters through.
     def ledger_entry_params
       strong_params = params.require(:ledger_entry).permit(
-        *permitted_fields,
+
         :post_date,
         :status,
         :note,
@@ -48,6 +48,8 @@ class Api::V1::LedgerEntriesController < Api::V1::ApplicationController
                                          :order_number,
                                          :amount,
                                          :note,
+
+                                         :company_id,
                                          :ledger_account_id],
       )
 

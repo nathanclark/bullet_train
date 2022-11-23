@@ -7,7 +7,7 @@ class LedgerEntry < ApplicationRecord
   belongs_to :user
   # 🚅 add belongs_to associations above.
 
-  has_many :ledger_entry_details, dependent: :destroy, enable_updates: true, inverse_of: :company
+  has_many :ledger_entry_details, dependent: :destroy, enable_updates: true, inverse_of: :ledger_entry
   accepts_nested_attributes_for :ledger_entry_details, allow_destroy: true, reject_if: :all_blank
   validates_associated :ledger_entry_details
   # 🚅 add has_many associations above.

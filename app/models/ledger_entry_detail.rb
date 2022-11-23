@@ -22,8 +22,8 @@ class LedgerEntryDetail < ApplicationRecord
 
   # 🚅 add delegations above.
   def valid_parents
-    LedgerAccount.find(company_id:ledger_entry.company_id)
-
+    #LedgerAccount.where("company_id= '#{company_id}'")
+    LedgerAccount.all
   end
   # 🚅 add methods above.
 end

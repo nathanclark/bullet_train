@@ -5,12 +5,9 @@
     <%= render 'account/shared/forms/errors', form: form %>
 
     <% with_field_settings form: form do %>
+
       <%= render 'shared/fields/date_field', method: :post_date, options: {autofocus: true} %>
-      <%= render 'shared/fields/super_select', method: :status %>
-      <%= render 'shared/fields/trix_editor', method: :note %>
-      <%= render 'shared/fields/super_select', method: :source_type %>
-      <%= render 'shared/fields/super_select', method: :fiscal_period %>
-      <%# 🚅 super scaffolding will insert new fields above this line. %>
+
     <% end %>
 
     <div class=" py-5 px-5 border-solid border shadow-md border-slate-300 rounded-lg ">
@@ -32,9 +29,24 @@
     </div>
   <% end %>
 <% end %>
+<div id="container"></div>
 <div id="example">
   <div id="grid"></div>
   <script>
+      var details = [
+          { ledger_entry_id: 1,ledger_account_id:1, amount: 2.00,order_number:1 },
+          { ledger_entry_id: 1,ledger_account_id:3, amount: -2.00,order_number:2 }
+      ];
+      var localDataSource = new kendo.data.DataSource({
+          data: details,
+          sort: { field: "order_number", dir: "desc" }
+      });
+      localDataSource.read();
+      var currentView = localDataSource.view();
+      currentView.forEach(function(el){
+
+          $('#container').append(`<p>${el.order_number} --> <b> ${el.ledger_account_id}</b> ${el.amount}</p> `)
+      });
       $(document).ready(function () {
 
           $("#grid").kendoGrid({

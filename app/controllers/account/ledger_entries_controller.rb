@@ -15,9 +15,9 @@ class Account::LedgerEntriesController < Account::ApplicationController
 
   # GET /account/companies/:company_id/ledger_entries/new
   def new
-    @ledger_entry.company_id = params[:company_id]
+
     @ledger_entry.id = Time.now.to_i
-    @ledger_entry.ledger_entry_details.build()
+    @ledger_entry.ledger_entry_details.build({company_id:@ledger_entry.company_id})
   end
 
   # GET /account/ledger_entries/:id/edit
@@ -27,6 +27,9 @@ class Account::LedgerEntriesController < Account::ApplicationController
   # POST /account/companies/:company_id/ledger_entries
   # POST /account/companies/:company_id/ledger_entries.json
   def create
+    unless @ledger_entry.id
+      @ledger_entry.id = Time.now.to_i
+    end
     @ledger_entry.user = current_user
     respond_to do |format|
       if @ledger_entry.save
@@ -62,7 +65,10 @@ class Account::LedgerEntriesController < Account::ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def ledger_entry_detail_field
+    @ledger_entry_detail = LedgerEntryDetail.new({company_id:params['company_id']})
+    puts 's'
+  end
   private
 
   include strong_parameters_from_api

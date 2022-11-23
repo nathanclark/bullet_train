@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_055630) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -167,6 +167,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_055630) do
     t.integer "order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_ledger_entry_details_on_company_id"
     t.index ["ledger_account_id"], name: "index_ledger_entry_details_on_ledger_account_id"
     t.index ["ledger_entry_id"], name: "index_ledger_entry_details_on_ledger_entry_id"
   end
@@ -448,6 +450,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_055630) do
   add_foreign_key "ledger_accounts_export_actions", "memberships", column: "created_by_id"
   add_foreign_key "ledger_entries", "companies"
   add_foreign_key "ledger_entries", "users"
+  add_foreign_key "ledger_entry_details", "companies"
   add_foreign_key "ledger_entry_details", "ledger_accounts"
   add_foreign_key "ledger_entry_details", "ledger_entries"
   add_foreign_key "memberships", "invitations"
