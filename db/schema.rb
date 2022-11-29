@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_015643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,27 +122,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sub"
+    t.string "acnt_type"
+    t.string "rb_cat"
+    t.string "product"
     t.index ["company_id"], name: "index_ledger_accounts_on_company_id"
-  end
-
-  create_table "ledger_accounts_export_actions", force: :cascade do |t|
-    t.bigint "company_id", null: false
-    t.boolean "target_all", default: false
-    t.jsonb "target_ids", default: []
-    t.datetime "started_at"
-    t.datetime "completed_at"
-    t.integer "target_count"
-    t.integer "performed_count", default: 0
-    t.datetime "scheduled_for"
-    t.string "sidekiq_jid"
-    t.bigint "created_by_id", null: false
-    t.bigint "approved_by_id"
-    t.jsonb "fields", default: []
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["approved_by_id"], name: "index_ledger_accounts_exports_on_approved_by_id"
-    t.index ["company_id"], name: "index_ledger_accounts_export_actions_on_company_id"
-    t.index ["created_by_id"], name: "index_ledger_accounts_exports_on_created_by_id"
   end
 
   create_table "ledger_entries", force: :cascade do |t|
@@ -162,12 +146,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
   create_table "ledger_entry_details", force: :cascade do |t|
     t.bigint "ledger_entry_id", null: false
     t.bigint "ledger_account_id", null: false
-    t.float "amount"
+    t.float "amount", default: 0.0
     t.string "note"
     t.integer "order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
+    t.float "debit", default: 0.0
+    t.float "credit", default: 0.0
     t.index ["company_id"], name: "index_ledger_entry_details_on_company_id"
     t.index ["ledger_account_id"], name: "index_ledger_entry_details_on_ledger_account_id"
     t.index ["ledger_entry_id"], name: "index_ledger_entry_details_on_ledger_entry_id"
@@ -268,7 +254,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
 
   create_table "postal_addresses", force: :cascade do |t|
     t.bigint "company_id", null: false
-    t.string "address_type"
+    t.integer "address_type"
     t.string "street1"
     t.string "street2"
     t.string "city"
@@ -445,9 +431,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_225533) do
   add_foreign_key "integrations_stripe_installations", "teams"
   add_foreign_key "invitations", "teams"
   add_foreign_key "ledger_accounts", "companies"
-  add_foreign_key "ledger_accounts_export_actions", "companies"
-  add_foreign_key "ledger_accounts_export_actions", "memberships", column: "approved_by_id"
-  add_foreign_key "ledger_accounts_export_actions", "memberships", column: "created_by_id"
   add_foreign_key "ledger_entries", "companies"
   add_foreign_key "ledger_entries", "users"
   add_foreign_key "ledger_entry_details", "companies"

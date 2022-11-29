@@ -1,13 +1,10 @@
 <%= render 'account/shared/page' do |p| %>
-  <% p.content_for :title, t('.section') %>
+  <% p.content_for :title, "Ledger Entry Details" %>
   <% p.content_for :body do %>
     <%= updates_for @ledger_entry do %>
       <%= render 'account/shared/box', divider: true do |p| %>
         <% p.content_for :title, t('.header') %>
-        <% p.content_for :description do %>
-          <%= t('.description') %>
-          <%= t('.manage_description') if can? :manage, @ledger_entry %>
-        <% end %>
+
 
         <% p.content_for :body do %>
           <% with_attribute_settings object: @ledger_entry, strategy: :label do %>
@@ -23,8 +20,8 @@
         <% p.content_for :actions do %>
           <%= link_to t('.buttons.edit'), [:edit, :account, @ledger_entry], class: first_button_primary if can? :edit, @ledger_entry %>
           <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
-          <%= button_to t('.buttons.destroy'), [:account, @ledger_entry], method: :delete, class: first_button_primary, data: { confirm: t('.buttons.confirmations.destroy', model_locales(@ledger_entry)) } if can? :destroy, @ledger_entry %>
-          <%= link_to t('global.buttons.back'), [:account, @company, :ledger_entries], class: first_button_primary %>
+          <%= button_to 'Delete', [:account, @ledger_entry], method: :delete, class: first_button_primary, data: { confirm: 'Are you sure?' } if can? :destroy, @ledger_entry %>
+          <%= link_to 'Back', [:account, @company, :ledger_entries], class: first_button_primary %>
         <% end %>
 
         <% p.content_for :raw_footer do %>

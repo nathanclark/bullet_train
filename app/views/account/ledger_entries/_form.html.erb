@@ -1,27 +1,184 @@
 <% cancel_path ||= ledger_entry.persisted? ? [:account, ledger_entry] : [:account, @company, :ledger_entries] %>
+<script>
+    var ledger_entry_details_data =
+    <%= raw(ledger_entry.ledger_entry_details.to_json(
+   :include => [
+   :ledger_account
+   ])) %>
+    var ledger_accounts_data =
+    <%= raw(@company.ledger_accounts.to_json) %>
 
-<%= form_with model: ledger_entry, url: (ledger_entry.persisted? ? [:account, ledger_entry] : [:account, @company, :ledger_entries]), local: true, class: 'form' do |form| %>
+    // create new array from ledger_accounts_data, containing only id and title
+    var ledger_accounts = [];
+    for (var i = 0; i < ledger_accounts_data.length; i++) {
+        ledger_accounts.push({
+            value: ledger_accounts_data[i].id,
+            text: `${ledger_accounts_data[i].ledger_account_number}-${ledger_accounts_data[i].title}`
+        });
+    }
+
+    console.table(ledger_entry_details_data)
+    // render json: ledger_entry_details_data
+    $(function () { //shorthand document.ready function
+        $('#ledger_entry_form').on('submit', function (e) { //use on if jQuery 1.7+
+            var formData = $("#grid").data("kendoGrid").dataSource.data();
+            // Loop through the data and add the data to the form
+            for (var i = 0; i < formData.length; i++) {
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][order_number]")
+                    .attr('value', i)
+                    .appendTo('#ledger_entry_form');
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][ledger_account_id]")
+                    .attr('value', formData[i].ledger_account_id)
+                    .appendTo('#ledger_entry_form');
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][amount]")
+                    .attr('value', formData[i].amount)
+                    .appendTo('#ledger_entry_form');
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][note]")
+                    .attr('value', formData[i].note)
+                    .appendTo('#ledger_entry_form');
+                // add Credit to the form
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][credit]")
+                    .attr('value', formData[i].credit)
+                    .appendTo('#ledger_entry_form');
+                // add Debit to the form
+                $('<input />').attr('type', 'hidden')
+                    .attr('name', "ledger_entry[ledger_entry_details_attributes][" + i + "][debit]")
+                    .attr('value', formData[i].debit)
+                    .appendTo('#ledger_entry_form');
+            }
+            var data = $("#ledger_entry_form :input").serializeArray();
+
+            debugger
+            console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+        });
+    });
+</script>
+
+<%= form_with model: ledger_entry, :html => { :id => "ledger_entry_form" }, url: (ledger_entry.persisted? ? [:account, ledger_entry] : [:account, @company, :ledger_entries]), local: true, class: 'form' do |form| %>
   <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
     <%= render 'account/shared/forms/errors', form: form %>
 
     <% with_field_settings form: form do %>
 
-      <%= render 'shared/fields/date_field', method: :post_date, options: {autofocus: true} %>
+      <%= render 'shared/fields/date_field', method: :post_date %>
 
     <% end %>
 
-    <div class=" py-5 px-5 border-solid border shadow-md border-slate-300 rounded-lg ">
-      <div class="border-gray-200 pb-5">
-        <h2 class="text-lg font-medium leading-6 text-gray-900">Ledger Entry Details
-          <span class="float-right"><%= link_to "Add New Ledger Details", ledger_entry_detail_field_account_company_ledger_entries_path(@company), data: { turbo_stream: true }, class: ' left-0 top-0  btn btn-primary btn-xs text-right' %></span>
-        </h2>
-      </div>
+    <div class="grid grid-cols-1 gap-1">
+      <div class="col-span-1">
+        <%# Horizontal input fields for ledger_entry_details %>
+        <%#= render 'account/ledger_entry_details/form_sm' %>
+        <div id="example">
+          <div id="container"></div>
+          <div id="grid"></div>
+          <script>
 
-      <div id="ledger_entry_details">
+              var localDataSource = new kendo.data.DataSource({
+                  schema: {
+                      model: {
+                          id: "id",
+                          fields: {
+                              id: {editable: false, nullable: true},
+                              note: {type: "string"},
+                              'ledger_account.title': {type: "string"},
+                              company_id: {type: "number"},
+                              order_number: {type: "number", validation: {required: true}},
+                              ledger_account_id: {type: "number", validation: {required: true}},
+                              amount: {type: "number"},
+                              debit: {type: "number"},
+                              credit: {type: "number"},
+                              _destroy: {type: "boolean"}
+                          }
+                      }
+                  },
+                  aggregate: [
+                      {field: "debit", aggregate: "sum"},
+                      {field: "credit", aggregate: "sum"},
+                      {field: "amount", aggregate: "sum"}
+                  ],
+                  data: ledger_entry_details_data,
+                  sort: {field: "order_number", dir: "asc"}
+              });
+              localDataSource.read();
+              var currentView = localDataSource.view();
+              currentView.forEach(function (el) {
 
-        <%= render partial: 'ledger_entry_detail', collection: ledger_entry.ledger_entry_details %>
+                  //$('#container').append(`<p>order: ${el.order_number} --> <b>aid: ${el.ledger_account_id}</b> amount:${el.amount}</p> `)
+              });
+
+              function ledgerAccountDropDownEditor(container, options) {
+                  $('<input required name="' + options.field + '"/>')
+                      .appendTo(container)
+                      .kendoDropDownList({
+                          autoBind: false,
+                          dataTextField: "title",
+                          dataValueField: "id",
+                          dataSource: {
+                              data: ledger_accounts_data
+                          }
+                      });
+              }
+
+              $(document).ready(function () {
+
+                  $("#grid").kendoGrid({
+                      dataSource: localDataSource,
+                      editable: true,
+                      dataBound: function (e) {
+                          $('.k-grid-add').unbind("click");
+
+                          $('.k-grid-add').bind("click", function () {
+                              console.log("Handle the add button click")
+                          });
+                      },
+
+                      toolbar: ["create"],
+                      height: 550,
+                      columns: [
+                          {
+                              field: "ledger_account_id",
+                              width: "400px",
+                              values: ledger_accounts,
+                              title: "Ledger Account"
+                          },
+                          {
+                              field: "debit",
+                              title: "Debit",
+                              format: "{0:c}",
+                              footerTemplate: "#= kendo.toString(sum, 'c') #"
+
+                          },
+                          {
+                              field: "credit",
+                              title: "Credit",
+                              format: "{0:c}",
+                              footerTemplate: "#= kendo.toString(sum, 'c') #"
+                          },
+                          {
+                              field: "amount",
+                              title: "Amount",
+                              format: "{0:c}",
+                              footerTemplate: "#= kendo.toString(sum, 'c') #"
+                          }, {
+                              field: "note",
+                              title: "Note"
+                          },
+                          {command: ["destroy"], title: "&nbsp;", width: "250px"}]
+                      ,
+                  });
+              });
+          </script>
+
+        </div>
       </div>
     </div>
+
+
 
     <div class="buttons">
       <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
@@ -29,63 +186,8 @@
     </div>
   <% end %>
 <% end %>
-<div id="container"></div>
-<div id="example">
-  <div id="grid"></div>
-  <script>
-      var details = [
-          { ledger_entry_id: 1,ledger_account_id:1, amount: 2.00,order_number:1 },
-          { ledger_entry_id: 1,ledger_account_id:3, amount: -2.00,order_number:2 }
-      ];
-      var localDataSource = new kendo.data.DataSource({
-          data: details,
-          sort: { field: "order_number", dir: "desc" }
-      });
-      localDataSource.read();
-      var currentView = localDataSource.view();
-      currentView.forEach(function(el){
 
-          $('#container').append(`<p>${el.order_number} --> <b> ${el.ledger_account_id}</b> ${el.amount}</p> `)
-      });
-      $(document).ready(function () {
 
-          $("#grid").kendoGrid({
-              dataSource: {
-                  type: "odata",
-                  transport: {
-                      read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
-                  },
-                  pageSize: 20
-              },
-              height: 550,
-              groupable: true,
-              sortable: true,
-              pageable: {
-                  refresh: true,
-                  pageSizes: true,
-                  buttonCount: 5
-              },
-              columns: [{
-                  template: "<div class='customer-photo'" +
-                    "style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div>" +
-                    "<div class='customer-name'>#: ContactName #</div>",
-                  field: "ContactName",
-                  title: "Contact Name",
-                  width: 240
-              }, {
-                  field: "ContactTitle",
-                  title: "Contact Title"
-              }, {
-                  field: "CompanyName",
-                  title: "Company Name"
-              }, {
-                  field: "Country",
-                  width: 150
-              }]
-          });
-      });
-  </script>
-</div>
 
 <style type="text/css">
     .customer-photo {
@@ -97,7 +199,7 @@
         background-position: center center;
         vertical-align: middle;
         line-height: 32px;
-        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, .2);
         margin-left: 5px;
     }
 

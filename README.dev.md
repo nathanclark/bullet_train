@@ -105,14 +105,17 @@ bin/super-scaffold crud Employee Team employee_number:text_field employee_status
 
 rails g migration AddFieldsToEmployees email:string ssn:string zip_code:string tax_federal_exemptions:string tax_region_state:string tax_region_state_exemptions:string tax_filing_status:integer tax_other_income:float tax_deductions:float tax_extra_withholdings:float tax_dependants:integer
 
+rails g migration AddEEOReportingToEmployee eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:
+integer
+rails g migration AddDirectReportsToEmployees manager_id:integer
+lsof -i :3000 | awk '{system("kill -9 " $2)}' && rm tmp/pids/server.pid
 
-rails g migration AddEEOReportingToEmployee eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:integer
- rails g migration AddDirectReportsToEmployees manager_id:integer
-lsof -i :3000 | awk '{system("kill -9 " $2)}' && rm tmp/pids/server.pid   
+rails g model Contact company:references team:references contact_type first_name last_name title email fax_number
+cell_number work_number social_link cloudinary_image company_role
+bin/super-scaffold crud Contact Company,Team contact_type:super_select first_name:text_field last_name:text_field title:
+text_field email:email_field fax_number:phone_field cell_number:phone_field work_number:phone_field social_link:
+text_field cloudinary_image:cloudinary_image company_role:text_field
 
-
-rails g model Contact company:references team:references contact_type first_name last_name title email fax_number cell_number work_number social_link cloudinary_image company_role
-bin/super-scaffold crud Contact Company,Team contact_type:super_select first_name:text_field last_name:text_field title:text_field email:email_field fax_number:phone_field cell_number:phone_field work_number:phone_field social_link:text_field cloudinary_image:cloudinary_image company_role:text_field 
-
-
-      
+pg_dump.exe --dbname=petrobooks3_development
+--file=/home/nathan/source/rnd/bullet_train_starter/backups/petrobooks3_development__202211251938.sql --create
+--username=postgres --host=localhost --port=5432

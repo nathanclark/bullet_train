@@ -1,0 +1,21 @@
+<% ledger_entry_detail = LedgerEntryDetail.new %>
+
+<%= form_with model: ledger_entry_detail, url: "#", local: true, class: 'form' do |form| %>
+
+  <% with_field_settings form: form do %>
+    <div class="grid grid-flow-col auto-cols-[minmax(0,_2fr)] pr-4">
+
+      <div><%= render 'shared/fields/text_field', method: :amount %></div>
+      <div><%= render 'shared/fields/text_field', method: :note %></div>
+      <div>      <%= render 'shared/fields/super_select', method: :ledger_account_id, options: {}, html_options: {},
+                            choices: ledger_entry_detail.valid_parents.map { |ledger_account| [ledger_account.label_string, ledger_account.id] } %></div>
+    </div>
+    <%#= form.hidden_field :ledger_entry_id %>
+
+
+
+
+    <%# 🚅 super scaffolding will insert new fields above this line. %>
+  <% end %>
+
+<% end %>

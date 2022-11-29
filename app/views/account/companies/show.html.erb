@@ -10,12 +10,55 @@
         <% end %>
 
         <% p.content_for :body do %>
-          <% with_attribute_settings object: @company, strategy: :label do %>
-            <%= render 'shared/attributes/text', attribute: :name %>
-            <%= render 'shared/attributes/text', attribute: :legal_name %>
-            <%= render 'shared/attributes/text', attribute: :ein %>
-            <%# 🚅 super scaffolding will insert new fields above this line. %>
-          <% end %>
+
+          <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+              <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 rounded-t-lg border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Primary</button>
+              </li>
+              <li class="mr-2 hidden" role="presentation">
+
+                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard
+                </button>
+              </li>
+              <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Ledger</button>
+              </li>
+              <li role="presentation">
+                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+              </li>
+            </ul>
+          </div>
+          <div id="myTabContent">
+
+
+            <div class="hidden border-solid p-4 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <% with_attribute_settings object: @company, strategy: :label do %>
+                <%= render 'shared/attributes/text', attribute: :name %>
+                <%= render 'shared/attributes/text', attribute: :legal_name %>
+                <%= render 'shared/attributes/text', attribute: :ein %>
+                <%# 🚅 super scaffolding will insert new fields above this line. %>
+              <% end %>
+
+            </div>
+            <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+
+              <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
+              11
+            </div>
+            <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+
+              <%= render 'account/ledger_accounts/index', ledger_accounts: @company.ledger_accounts, hide_back: true %>
+              <%= render 'account/ledger_entries/index', ledger_entries: @company.ledger_entries, hide_back: true %>
+            </div>
+            <div class="" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+              <%= render 'account/contacts/index', contacts: @company.contacts, hide_back: true %>
+
+
+            </div>
+          </div>
+
+
         <% end %>
 
         <% p.content_for :actions do %>
@@ -31,10 +74,10 @@
       <% end %>
     <% end %>
 
-    <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
-    <%= render 'account/contacts/index', contacts: @company.contacts, hide_back: true %>
-    <%= render 'account/ledger_accounts/index', ledger_accounts: @company.ledger_accounts, hide_back: true %>
-    <%= render 'account/ledger_entries/index', ledger_entries: @company.ledger_entries, hide_back: true %>
+
+
+
+
     <%# 🚅 super scaffolding will insert new children above this line. %>
   <% end %>
 <% end %>

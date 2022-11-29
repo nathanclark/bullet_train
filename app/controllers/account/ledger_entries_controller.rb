@@ -17,7 +17,7 @@ class Account::LedgerEntriesController < Account::ApplicationController
   def new
 
     @ledger_entry.id = Time.now.to_i
-    @ledger_entry.ledger_entry_details.build({company_id:@ledger_entry.company_id})
+    #@ledger_entry.ledger_entry_details.build()
   end
 
   # GET /account/ledger_entries/:id/edit

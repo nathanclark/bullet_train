@@ -48,7 +48,7 @@ class Api::V1::LedgerEntriesController < Api::V1::ApplicationController
                                          :order_number,
                                          :amount,
                                          :note,
-
+                                         :description, :credit, :debit, :_destroy,
                                          :company_id,
                                          :ledger_account_id],
       )

@@ -25,8 +25,9 @@ import "@bullet-train/bullet-train"
 import "@bullet-train/bullet-train-sortable"
 
 require("@icon/themify-icons/themify-icons.css")
+require("@fortawesome/fontawesome-pro/css/all.css")
+import {trixEditor} from "@bullet-train/fields"
 
-import { trixEditor } from "@bullet-train/fields"
 trixEditor()
 
 import "./electron"
@@ -36,5 +37,10 @@ import "./electron"
 // conflicts in the future when Rails or Bullet Train update their own default includes.
 import "@rails/request.js"
 import "./support/flowbite"
+// add support for underscore
+require("./support/underscore-esm-min")
+var _ = require('./support/underscore-esm-min');
+
+
 
 

@@ -5,7 +5,7 @@ en:
       label: *label
     navigation:
       label: *label
-      icon: fal fa-puzzle-piece ti ti-gift
+      icon: fa-thin fa-building
     buttons: &buttons
       new: Add New Company
       create: Create Company

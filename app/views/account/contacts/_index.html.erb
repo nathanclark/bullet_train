@@ -21,7 +21,6 @@
           <table class="table">
             <thead>
               <tr>
-                <%= render "shared/tables/select_all" %>
                 <th><%= t('.fields.contact_type.heading') %></th>
                 <th><%= t('.fields.first_name.heading') %></th>
                 <th><%= t('.fields.last_name.heading') %></th>
@@ -35,7 +34,6 @@
               <% contacts.each do |contact| %>
                 <% with_attribute_settings object: contact do %>
                   <tr data-id="<%= contact.id %>">
-                    <%= render "shared/tables/checkbox", object: contact %>
                     <td><%= render 'shared/attributes/option', attribute: :contact_type, url: [:account, contact] %></td>
                     <td><%= render 'shared/attributes/text', attribute: :first_name %></td>
                     <td><%= render 'shared/attributes/text', attribute: :last_name %></td>
@@ -64,18 +62,14 @@
       <% p.content_for :actions do %>
         <% unless hide_actions %>
           <% if context == company %>
-            <% if can? :create, Contact.new(company: company) %>
-              <%= link_to t('.buttons.new'), [:new, :account, company, :contact], class: "#{first_button_primary(:contact)} new" %>
-            <% end %>
+
           <% end %>
 
           <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
           <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
-          <%= render "shared/bulk_action_select" %>
 
-          <% unless hide_back %>
-            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:contact)} back" %>
-          <% end %>
+
+
         <% end %>
       <% end %>
 

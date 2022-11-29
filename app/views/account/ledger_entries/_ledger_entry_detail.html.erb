@@ -6,7 +6,7 @@
     <%= fields_for "ledger_entry[ledger_entry_details_attributes][#{(ledger_entry_detail.persisted?) ? ledger_entry_detail.id : ledger_entry_detail_id}]", ledger_entry_detail do |ff| %>
 
       <%#= ff.hidden_field :id, value:ledger_entry_detail_id  %>
-      <%= ff.hidden_field :company_id %>
+      <%#= ff.hidden_field :company_id %>
       <%= render 'shared/fields/text_field', form: ff,method: :order_number, options: {autofocus: true} %>
       <%= render 'shared/fields/text_field', form: ff,method: :amount %>
       <%= render 'shared/fields/text_field', form: ff,method: :note %>
