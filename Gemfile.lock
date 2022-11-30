@@ -30,8 +30,6 @@ GIT
 GEM
   remote: https://OSetO-n08J3WQhgjynm5J49kifxM36ZQ@gem.fury.io/bullettrain/
   specs:
-    bullet_train-action_models (1.0.31)
-      rails (>= 6.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -614,7 +612,6 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap
   bullet_train
-  bullet_train-action_models!
   bullet_train-api
   bullet_train-incoming_webhooks
   bullet_train-integrations

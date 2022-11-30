@@ -179,5 +179,5 @@ gem "sidekiq", "~> 6.0"
 gem 'requestjs-rails'
 gem "importmap-rails", "~> 1.1"
 source "https://OSetO-n08J3WQhgjynm5J49kifxM36ZQ@gem.fury.io/bullettrain" do
-  gem "bullet_train-action_models"
+  #gem "bullet_train-action_models"
 end
