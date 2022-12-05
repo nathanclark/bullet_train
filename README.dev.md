@@ -132,9 +132,7 @@ super_select[class_name=LedgerAccount]
 rails g model Vendor company:references name:string vendor_number:string is_payee:boolean address1:string address2:
 string city:string region:string zip_code:string phone_number:string ledger_account:references
 
-bin/super-scaffold crud Vendor Team name:text_field vendor_number:text_field is_payee:boolean ledger_account_id:
-super_select[class_name=LedgerAccount] address1:text_field address2:text_field city:text_field region:text_field
-zip_code:text_field phone_number:text_field
+bin/super-scaffold crud Vendor Company,Team name:text_field vendor_number:text_field is_payee:boolean ledger_account_id:super_select[class_name=LedgerAccount] address1:text_field address2:text_field city:text_field region:text_field zip_code:text_field phone_number:text_field
 
 rails g model VendorInvoice team:references vendor:references invoice_type:string invoice_total:float reference_number:
 string invoice_number:string invoice_date:date_field gl_posting_date:date_field discount_total:float
