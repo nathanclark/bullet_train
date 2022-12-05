@@ -24,6 +24,8 @@ components:
     <%= automatic_components_for LedgerAccount %>
     <%= automatic_components_for LedgerEntry %>
     <%= automatic_components_for LedgerEntryDetail %>
+    <%= automatic_components_for Vendor %>
+    <%= automatic_components_for VendorInvoice %>
     <%# 🚅 super scaffolding will insert new components above this line. %>
   parameters:
     id:
@@ -45,4 +47,6 @@ paths:
   <%= automatic_paths_for LedgerEntry, Company %>
   <%= automatic_paths_for LedgerEntryDetail, JournalEntry %>
   <%= automatic_paths_for LedgerEntryDetail, LedgerEntry %>
+  <%= automatic_paths_for Vendor, Company %>
+  <%= automatic_paths_for VendorInvoice, Vendor %>
   <%# 🚅 super scaffolding will insert new paths above this line. %>

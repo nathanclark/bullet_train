@@ -1,0 +1,24 @@
+<% cancel_path ||= vendor_invoice.persisted? ? [:account, vendor_invoice] : [:account, @vendor, :vendor_invoices] %>
+
+<%= form_with model: vendor_invoice, url: (vendor_invoice.persisted? ? [:account, vendor_invoice] : [:account, @vendor, :vendor_invoices]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%= render 'shared/fields/text_field', method: :invoice_type, options: {autofocus: true} %>
+      <%= render 'shared/fields/text_field', method: :invoice_total %>
+      <%= render 'shared/fields/text_field', method: :reference_number %>
+      <%= render 'shared/fields/text_field', method: :invoice_number %>
+      <%= render 'shared/fields/date_field', method: :invoice_date %>
+      <%= render 'shared/fields/date_field', method: :gl_posting_date %>
+      <%= render 'shared/fields/text_field', method: :discount_total %>
+      <%= render 'shared/fields/date_field', method: :discount_expiration_date %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

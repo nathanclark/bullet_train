@@ -1,0 +1,95 @@
+<% vendor = @vendor || @vendor %>
+<% context ||= vendor %>
+<% collection ||= :vendor_invoices %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% vendor_invoices = vendor_invoices.order(:id) unless has_order?(vendor_invoices) %>
+<% pagy, vendor_invoices = pagy(vendor_invoices, page_param: :vendor_invoices_page) %>
+
+<%= action_model_select_controller do %>
+  <%= updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless vendor_invoices.any?}") %>
+        <%= render "shared/limits/index", model: vendor_invoices.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if vendor_invoices.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <%= render "shared/tables/select_all" %>
+                <th><%= t('.fields.invoice_type.heading') %></th>
+                <th><%= t('.fields.invoice_total.heading') %></th>
+                <th><%= t('.fields.reference_number.heading') %></th>
+                <th><%= t('.fields.invoice_number.heading') %></th>
+                <th><%= t('.fields.invoice_date.heading') %></th>
+                <th><%= t('.fields.gl_posting_date.heading') %></th>
+                <th><%= t('.fields.discount_total.heading') %></th>
+                <th><%= t('.fields.discount_expiration_date.heading') %></th>
+                <%# 🚅 super scaffolding will insert new field headers above this line. %>
+                <th><%= t('.fields.created_at.heading') %></th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% vendor_invoices.each do |vendor_invoice| %>
+                <% with_attribute_settings object: vendor_invoice do %>
+                  <tr data-id="<%= vendor_invoice.id %>">
+                    <%= render "shared/tables/checkbox", object: vendor_invoice %>
+                    <td><%= render 'shared/attributes/text', attribute: :invoice_type, url: [:account, vendor_invoice] %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :invoice_total %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :reference_number %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :invoice_number %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :invoice_date %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :gl_posting_date %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :discount_total %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :discount_expiration_date %></td>
+                    <%# 🚅 super scaffolding will insert new fields above this line. %>
+                    <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
+                    <td class="buttons">
+                      <% unless hide_actions %>
+                        <% if can? :edit, vendor_invoice %>
+                          <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, vendor_invoice], class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <% if can? :destroy, vendor_invoice %>
+                          <%= button_to t('.buttons.shorthand.destroy'), [:account, vendor_invoice], method: :delete, data: { confirm: t('.buttons.confirmations.destroy', model_locales(vendor_invoice)) }, class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == vendor %>
+            <% if can? :create, VendorInvoice.new(vendor: vendor) %>
+              <%= link_to t('.buttons.new'), [:new, :account, vendor, :vendor_invoice], class: "#{first_button_primary(:vendor_invoice)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:vendor_invoice)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

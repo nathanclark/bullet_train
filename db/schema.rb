@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_220741) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_044306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -362,6 +362,41 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_220741) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vendor_invoices", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "vendor_id", null: false
+    t.string "invoice_type"
+    t.float "invoice_total"
+    t.string "reference_number"
+    t.string "invoice_number"
+    t.date "invoice_date"
+    t.date "gl_posting_date"
+    t.float "discount_total"
+    t.date "discount_expiration_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_vendor_invoices_on_company_id"
+    t.index ["vendor_id"], name: "index_vendor_invoices_on_vendor_id"
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.string "vendor_number"
+    t.boolean "is_payee"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "region"
+    t.string "zip_code"
+    t.string "phone_number"
+    t.bigint "ledger_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_vendors_on_company_id"
+    t.index ["ledger_account_id"], name: "index_vendors_on_ledger_account_id"
+  end
+
   create_table "webhooks_incoming_bullet_train_webhooks", force: :cascade do |t|
     t.jsonb "data"
     t.datetime "processed_at", precision: nil
@@ -456,6 +491,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_220741) do
   add_foreign_key "scaffolding_completely_concrete_tangible_things_assignments", "memberships"
   add_foreign_key "scaffolding_completely_concrete_tangible_things_assignments", "scaffolding_completely_concrete_tangible_things", column: "tangible_thing_id"
   add_foreign_key "users", "oauth_applications", column: "platform_agent_of_id"
+  add_foreign_key "vendor_invoices", "companies"
+  add_foreign_key "vendor_invoices", "vendors"
+  add_foreign_key "vendors", "companies"
+  add_foreign_key "vendors", "ledger_accounts"
   add_foreign_key "webhooks_outgoing_endpoints", "teams"
   add_foreign_key "webhooks_outgoing_events", "teams"
 end

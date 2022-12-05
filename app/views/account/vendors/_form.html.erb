@@ -1,0 +1,27 @@
+<% cancel_path ||= vendor.persisted? ? [:account, vendor] : [:account, @company, :vendors] %>
+
+<%= form_with model: vendor, url: (vendor.persisted? ? [:account, vendor] : [:account, @company, :vendors]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%= render 'shared/fields/text_field', method: :name, options: {autofocus: true} %>
+      <%= render 'shared/fields/text_field', method: :vendor_number %>
+      <%= render 'shared/fields/options', method: :is_payee %>
+      <%= render 'shared/fields/super_select', method: :ledger_account_id, options: {}, html_options: {},
+        choices: @vendor.valid_ledger_accounts.map { |ledger_account| [ledger_account.label_string, ledger_account.id] } %>
+      <%= render 'shared/fields/text_field', method: :address1 %>
+      <%= render 'shared/fields/text_field', method: :address2 %>
+      <%= render 'shared/fields/text_field', method: :city %>
+      <%= render 'shared/fields/text_field', method: :region %>
+      <%= render 'shared/fields/text_field', method: :zip_code %>
+      <%= render 'shared/fields/text_field', method: :phone_number %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

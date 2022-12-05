@@ -1,0 +1,8 @@
+<% vendor_invoice ||= @vendor_invoice %>
+<% vendor ||= @vendor || vendor_invoice&.vendor %>
+<%= render 'account/vendors/breadcrumbs', vendor: vendor %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, vendor, :vendor_invoices] %>
+<% if vendor_invoice&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: vendor_invoice.label_string, url: [:account, vendor_invoice] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'vendor_invoices' %>

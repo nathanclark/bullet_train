@@ -90,6 +90,10 @@ Rails.application.routes.draw do
             end
             resources :ledger_entry_details
           end
+
+          resources :vendors do
+            resources :vendor_invoices
+          end
         end
       end
     end

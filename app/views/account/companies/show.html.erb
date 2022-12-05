@@ -27,6 +27,9 @@
               <li role="presentation">
                 <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
               </li>
+              <li role="presentation">
+                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="contacts-tab" data-tabs-target="#vendors" type="button" role="tab" aria-controls="contacts" aria-selected="false">Vendors</button>
+              </li>
             </ul>
           </div>
           <div id="myTabContent">
@@ -53,8 +56,9 @@
             </div>
             <div class="" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
               <%= render 'account/contacts/index', contacts: @company.contacts, hide_back: true %>
-
-
+            </div>
+            <div class="" id="vendors" role="tabpanel" aria-labelledby="contacts-tab">
+              <%= render 'account/vendors/index', vendors: @company.vendors, hide_back: true %>
             </div>
           </div>
 
@@ -73,6 +77,7 @@
         <% end %>
       <% end %>
     <% end %>
+
 
 
 

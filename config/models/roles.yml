@@ -1,5 +1,8 @@
 default:
   models:
+    VendorInvoice: read
+    Vendor: read
+    Vendor: read
     LedgerEntryDetail: read
     LedgerEntryDetail: read
     LedgerEntry: read
@@ -36,6 +39,9 @@ admin:
     - admin
     - editor
   models:
+    VendorInvoice: manage
+    Vendor: manage
+    Vendor: manage
     LedgerEntryDetail: manage
     LedgerEntryDetail: manage
     LedgerEntry: manage

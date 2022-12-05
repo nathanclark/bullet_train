@@ -134,13 +134,9 @@ string city:string region:string zip_code:string phone_number:string ledger_acco
 
 bin/super-scaffold crud Vendor Company,Team name:text_field vendor_number:text_field is_payee:boolean ledger_account_id:super_select[class_name=LedgerAccount] address1:text_field address2:text_field city:text_field region:text_field zip_code:text_field phone_number:text_field
 
-rails g model VendorInvoice team:references vendor:references invoice_type:string invoice_total:float reference_number:
-string invoice_number:string invoice_date:date_field gl_posting_date:date_field discount_total:float
-discount_expiration_date:date_field
+rails g model VendorInvoice company:references vendor:references invoice_type:string invoice_total:float reference_number:string invoice_number:string invoice_date:date gl_posting_date:date discount_total:float discount_expiration_date:date
 
-bin/super-scaffold crud VendorInvoice Vendor, Team invoice_type:text_field invoice_total:text_field reference_number:
-text_field invoice_number:text_field invoice_date:date gl_posting_date:date discount_total:text_field
-discount_expiration_date:date test
+bin/super-scaffold crud VendorInvoice Vendor,Company,Team invoice_type:text_field invoice_total:text_field reference_number:text_field invoice_number:text_field invoice_date:date_field gl_posting_date:date_field discount_total:text_field discount_expiration_date:date_field
 
 rails g model JournalEntryDetail journal_entry:references team:references line:integer ledger_account:references amount:
 float description:text

@@ -38,6 +38,10 @@ shallow do
         resources :ledger_entries do
           resources :ledger_entry_details
         end
+
+        resources :vendors do
+          resources :vendor_invoices
+        end
       end
     end
   end

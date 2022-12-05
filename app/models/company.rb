@@ -15,5 +15,5 @@ class Company < ApplicationRecord
   validates_associated :ledger_accounts
 
   has_many :ledger_entries, enable_updates: true
-
+  has_many :vendors, enable_updates: true
 end

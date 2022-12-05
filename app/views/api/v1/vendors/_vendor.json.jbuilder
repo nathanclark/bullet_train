@@ -1,0 +1,16 @@
+json.extract! vendor,
+  :id,
+  :company_id,
+  :name,
+  :vendor_number,
+  :is_payee,
+  :ledger_account_id,
+  :address1,
+  :address2,
+  :city,
+  :region,
+  :zip_code,
+  :phone_number,
+  # 🚅 super scaffolding will insert new fields above this line.
+  :created_at,
+  :updated_at

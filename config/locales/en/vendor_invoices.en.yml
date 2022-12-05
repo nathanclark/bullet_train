@@ -1,0 +1,124 @@
+en:
+  vendor_invoices: &vendor_invoices
+    label: &label Vendor Invoices
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Vendor Invoice
+      create: Create Vendor Invoice
+      edit: Edit Vendor Invoice
+      update: Update Vendor Invoice
+      destroy: Remove Vendor Invoice
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{vendor_invoice_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Vendor Invoice ID
+      vendor_id:
+        heading: Vendor ID
+      invoice_type:
+        _: &invoice_type Invoice Type
+        label: *invoice_type
+        heading: *invoice_type
+      invoice_total:
+        _: &invoice_total Invoice Total
+        label: *invoice_total
+        heading: *invoice_total
+      reference_number:
+        _: &reference_number Reference Number
+        label: *reference_number
+        heading: *reference_number
+      invoice_number:
+        _: &invoice_number Invoice Number
+        label: *invoice_number
+        heading: *invoice_number
+      invoice_date:
+        _: &invoice_date Invoice Date
+        label: *invoice_date
+        heading: *invoice_date
+      gl_posting_date:
+        _: &gl_posting_date Gl Posting Date
+        label: *gl_posting_date
+        heading: *gl_posting_date
+      discount_total:
+        _: &discount_total Discount Total
+        label: *discount_total
+        heading: *discount_total
+      discount_expiration_date:
+        _: &discount_expiration_date Discount Expiration Date
+        label: *discount_expiration_date
+        heading: *discount_expiration_date
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Vendor Invoices"
+      index: "List Vendor Invoices"
+      create: "Add a New Vendor Invoice"
+      member_actions: "Actions for an Individual Vendor Invoice"
+      show: "Retrieve a Vendor Invoice"
+      update: "Update a Vendor Invoice"
+      destroy: "Delete a Vendor Invoice"
+      fields: *fields
+    index:
+      section: "%{vendors_possessive} Vendor Invoices"
+      contexts:
+        vendor:
+          header: Vendor Invoices
+          description: Below is a list of Vendor Invoices that have been added for %{vendor_name}.
+          description_empty: No Vendor Invoices have been added for %{vendor_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{vendor_invoice_name}"
+      header: Vendor Invoice Details
+      description: Below are the details we have for %{vendor_invoice_name}.
+      manage_description: You'll also find options for updating these details or removing %{vendor_invoice_name} from %{vendor_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Vendor Invoice for %{vendor_name}"
+      header: New Vendor Invoice Details
+      description: Please provide the details of the new Vendor Invoice you'd like to add to %{vendor_name}.
+      form: *form
+    edit:
+      section: "%{vendor_invoice_name}"
+      header: Edit Vendor Invoice Details
+      description: You can update the details or settings for %{vendor_invoice_name} below.
+      form: *form
+    notifications:
+      created: Vendor Invoice was successfully created.
+      updated: Vendor Invoice was successfully updated.
+      destroyed: Vendor Invoice was successfully destroyed.
+  account:
+    vendor_invoices: *vendor_invoices
+  activerecord:
+    attributes:
+      vendor_invoice:
+        invoice_type: *invoice_type
+        invoice_total: *invoice_total
+        reference_number: *reference_number
+        invoice_number: *invoice_number
+        invoice_date: *invoice_date
+        gl_posting_date: *gl_posting_date
+        discount_total: *discount_total
+        discount_expiration_date: *discount_expiration_date
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at
