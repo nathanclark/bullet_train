@@ -127,17 +127,24 @@
               $(document).ready(function () {
 
                   $("#grid").kendoGrid({
-                      dataSource: localDataSource,
-                      editable: true,
-                      dataBound: function (e) {
-                          $('.k-grid-add').unbind("click");
 
-                          $('.k-grid-add').bind("click", function () {
-                              console.log("Handle the add button click")
-                          });
-                      },
+
+                      dataSource: localDataSource,
+                      editable: 'incell',
+
 
                       toolbar: ["create"],
+                      edit: function(e) {
+                          if (e.model.isNew()) {
+                              var formData = $("#grid").data("kendoGrid").dataSource.data();
+                              // get first form data row if any
+                              var firstFormData = formData[1];
+                              if(firstFormData){
+                                  e.model.note = firstFormData.note;
+                              }
+
+                          }
+                      },
                       height: 550,
                       columns: [
                           {
