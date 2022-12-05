@@ -9,7 +9,7 @@
       <%= render 'shared/fields/text_field', method: :ledger_account_number %>
       <%= render 'shared/fields/super_select', method: :account_type %>
       <%= render 'shared/fields/super_select', method: :account_status %>
-      <%= render 'shared/fields/super_select', method: :posting_type %>
+      <%#= render 'shared/fields/super_select', method: :posting_type %>
       <%= render 'shared/fields/text_field', method: :alternate_account_number %>
       <%= render 'shared/fields/super_select', method: :parent_id, options: {}, html_options: {},
         choices: @ledger_account.valid_parents.map { |ledger_account| [ledger_account.label_string, ledger_account.id] } %>

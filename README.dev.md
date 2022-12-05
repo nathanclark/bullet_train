@@ -129,7 +129,8 @@ reporting_excluded:boolean_button_value parent_id:super_select[class_name=Ledger
 JournalEntryDetail JournalEntry amount:text_field description:text_area ledger_account_id:
 super_select[class_name=LedgerAccount]
 
-rails g model Vendor team:references name:string vendor_number:string is_payee:boolean address1:string address2:string
+rails g model Vendor company:references name:string vendor_number:string is_payee:boolean address1:string address2:
+string
 city:string region:string zip_code:string phone_number:string ledger_account:references
 
 bin/super-scaffold crud Vendor Team name:text_field vendor_number:text_field is_payee:boolean address1:text_field

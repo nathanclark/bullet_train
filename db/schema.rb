@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_015643) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_220741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,7 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_015643) do
 
   create_table "ledger_entries", force: :cascade do |t|
     t.bigint "company_id", null: false
-    t.date "post_date"
+    t.date "post_date", default: -> { "CURRENT_DATE" }
     t.string "status"
     t.bigint "user_id", null: false
     t.text "note"

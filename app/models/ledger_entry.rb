@@ -24,6 +24,11 @@ class LedgerEntry < ApplicationRecord
   # 🚅 add callbacks above.
 
   # 🚅 add delegations above.
+  after_initialize :init
+
+  def init
+    self.post_date ||= DateTime.now
+  end
 
   # 🚅 add methods above.
 end
