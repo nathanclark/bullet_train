@@ -64,3 +64,5 @@ dump.rdb
 /local
 
 # 🚅 add your files to ignore here.
+#Ignore backups folder
+/backups

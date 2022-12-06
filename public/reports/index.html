@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Simple_Table.mrt - Viewer</title>
+	<link rel="stylesheet" type="text/css" href="css/stimulsoft.viewer.office2013.whiteblue.css">
+	<script type="text/javascript" src="scripts/stimulsoft.reports.engine.js"></script>
+	<script type="text/javascript" src="scripts/stimulsoft.reports.export.js"></script>
+	<script type="text/javascript" src="scripts/stimulsoft.viewer.js"></script>
+
+	<script type="text/javascript">
+		function Start() {
+			Stimulsoft.Base.StiLicense.key =
+				"6vJhGtLLLz2GNviWmUTrhSqnOItdDwjBylQzQcAOiHlz/Rrod4UI9dUCsS4fIjVrDA3phbfxIEc3N45w" +
+				"bsDpsonPI4Xin1tK3nEielXuyasnnJmnvCg7hKCge2d6VITd65LIQMVAUYlDVtS9LUapgO6bDz1c0W1U" +
+				"FbzuTsdZOcBf3LBOmvTBnfMpedeZMfXYgJLZRfolcb4/a0oI8ip3Mcx1qu/cVm9cwXixGjvKsaRZZ8xe" +
+				"lpmzniMFsp/MWAaOTQwvIzPRz8O4FN4XI+WTo6Z9i8yGjWD/edaSCXGhYDTc1PYHIFwUmPvRUqpHR96a" +
+				"HoLvCqJ/eQZWUSey20ZNFmrytAhZ0uW3UQw+HZvXaxT2EMdsT67s5DL6S+53y0cpG2aOjEdInSTNJ+Yf" +
+				"7h9Bvel+KC/knmACPmB2QNGZ+m8e0eOtt3ZWNdBN+SxJEeiLtmtdaA/yeYPedd4Z0vuBlXESKsZiwW7e" +
+				"C1F75CfNYlHfnFDnU+8YJ2ABSlPJW5ijEaGL0Y7cw6lOQG4HZtHuePUvT+8iccDAHKaAnU+00bBT8w2O" +
+				"k5y7UggbarPQ7sWI2PsVSXeraBLK8kmQbTvSeLbrPAJRGVguHEzhlH71EmZ1WvBsmeqiSXsRzzObyLQH" +
+				"7AA0oUnhL7edxjnBgrXYNUZ0GFyqAseri5cLHV5NQ+0=";
+
+			var report = Stimulsoft.Report.StiReport.createNewReport();
+			report.loadFile("reports/Simple_Table.mrt");
+
+			var options = new Stimulsoft.Viewer.StiViewerOptions();
+			options.appearance.fullScreenMode = true;
+			options.toolbar.displayMode = Stimulsoft.Viewer.StiToolbarDisplayMode.Separated;
+			
+			var viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+			viewer.report = report;
+			viewer.renderHtml("viewerContent");
+		}
+	</script>
+</head>
+<body onload="Start()">
+	<div id="viewerContent"></div>
+</body>
+</html>

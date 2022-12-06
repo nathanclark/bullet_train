@@ -14,6 +14,66 @@
       <% p.content_for :description do %>
         <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless ledger_accounts.any?}") %>
         <%= render "shared/limits/index", model: ledger_accounts.model %>
+
+        <script type="text/javascript">
+            function Start() {
+                $("#window").data("kendoWindow").open()
+
+
+                var report = Stimulsoft.Report.StiReport.createNewReport();
+                report.loadFile("/reports/reports/Simple_Table.mrt");
+
+                var options = new Stimulsoft.Viewer.StiViewerOptions();
+                options.appearance.fullScreenMode = false;
+                options.appearance.openLinksWindow = '_blank';
+                options.toolbar.displayMode = Stimulsoft.Viewer.StiToolbarDisplayMode.Separated;
+
+                var viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+                viewer.report = report;
+                viewer.renderHtml("viewerContent");
+
+            }
+        </script>
+        <button onclick="Start()">Report</button>
+        <div id="example">
+          <div id="window">
+            <div id="viewerContent">
+            </div>
+
+
+          <script>
+              $(document).ready(function () {
+                  var myWindow = $("#window"),
+                      undo = $("#undo");
+
+                  undo.click(function() {
+                      myWindow.data("kendoWindow").open();
+                      undo.fadeOut();
+                  });
+
+                  function onClose() {
+                      undo.fadeIn();
+                  }
+
+                  myWindow.kendoWindow({
+                      position: {
+                          top: 0, // or "100px"
+                      },
+                      width: "75%",
+                      title: "Report Viewer",
+                      visible: false,
+                      actions: [
+                          "Pin",
+                          "Minimize",
+                          "Maximize",
+                          "Close"
+                      ],
+                      close: onClose
+                  }).data("kendoWindow");
+              });
+          </script>
+        </div>
+        </div>
       <% end %>
 
       <% p.content_for :table do %>
