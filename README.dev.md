@@ -62,13 +62,13 @@ rails g model EmployeeDepartment name:string
 bin/super-scaffold crud EmployeeDepartment Team name:text_field
 
 
-rails g model PayrollSchedule name:string occurrence:string 
-rails g model PayrollPayType name:string
-rails g model PayrollFederalFilingStatus name:string
-rails g model PayrollFederalWithholdingAllowance name:string
-rails g model EmployeeDeduction code:string description:string employee:references calculation_method:string deduction_value:float state_withholding:boolean region_state:string ytd_max:float
+rails g model PayrollSchedule company:references name:string occurrence:string 
+rails g model PayrollPayType company:references name:string
+rails g model PayrollFederalFilingStatus company:references name:string
+rails g model PayrollFederalWithholdingAllowance company:references name:string
+rails g model EmployeeDeduction company:references code:string description:string employee:references calculation_method:string deduction_value:float state_withholding:boolean region_state:string ytd_max:float
 
-rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text 
+rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text eto_type:rereferences 
 
 rails g model EmployeeETO eto_type:string
 
@@ -179,9 +179,9 @@ PayrollFederalFilingStatus name:string rails g model PayrollFederalWithholdingAl
 EmployeeDeduction code:string description:string employee:references calculation_method:string deduction_value:float
 state_withholding:boolean region_state:string ytd_max:float
 
-rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text
+rails g model Employee company:references employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:integer
 
-rails g model EmployeeETO eto_type:string
+rails g model EmployeeETO company:references eto_type:string
 
 rails g model Employee company:references employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime termination_reason:string payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text
 
@@ -202,5 +202,4 @@ rails g migration AddFieldsToEmployees email:string ssn:string zip_code:string t
 tax_region_state:string tax_region_state_exemptions:string tax_filing_status:integer tax_other_income:float
 tax_deductions:float tax_extra_withholdings:float tax_dependants:integer
 
-rails g migration AddEEOReportingToEmployee eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:
-integer z
+rails g migration AddEEOReportingToEmployee eeo_gender:integer eeo_ethnicity:string eeo_dob:date eeo_job_category:integer
