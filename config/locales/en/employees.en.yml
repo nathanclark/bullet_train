@@ -1,0 +1,234 @@
+en:
+  employees: &employees
+    label: &label Employees
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Employee
+      create: Create Employee
+      edit: Edit Employee
+      update: Update Employee
+      destroy: Remove Employee
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{employee_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Employee ID
+      company_id:
+        heading: Company ID
+      employee_number:
+        _: &employee_number Employee Number
+        label: *employee_number
+        heading: *employee_number
+      employee_status:
+        _: &employee_status Employee Status
+        label: *employee_status
+        heading: *employee_status
+      first_name:
+        _: &first_name First Name
+        label: *first_name
+        heading: *first_name
+      middle_name:
+        _: &middle_name Middle Name
+        label: *middle_name
+        heading: *middle_name
+      last_name:
+        _: &last_name Last Name
+        label: *last_name
+        heading: *last_name
+      address1:
+        _: &address1 Address1
+        label: *address1
+        heading: *address1
+      address2:
+        _: &address2 Address2
+        label: *address2
+        heading: *address2
+      city:
+        _: &city City
+        label: *city
+        heading: *city
+      region_state:
+        _: &region_state Region State
+        label: *region_state
+        heading: *region_state
+      phone_number:
+        _: &phone_number Phone Number
+        label: *phone_number
+        heading: *phone_number
+      employee_department:
+        _: &employee_department Employee Department
+        label: *employee_department
+        heading: *employee_department
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      hire_date:
+        _: &hire_date Hire Date
+        label: *hire_date
+        heading: *hire_date
+      termination:
+        _: &termination Termination
+        label: *termination
+        heading: *termination
+      payroll_schedule:
+        _: &payroll_schedule Payroll Schedule
+        label: *payroll_schedule
+        heading: *payroll_schedule
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      payroll_federal_filing_status:
+        _: &payroll_federal_filing_status Payroll Federal Filing Status
+        label: *payroll_federal_filing_status
+        heading: *payroll_federal_filing_status
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      expense_ledger_account:
+        _: &expense_ledger_account Expense Ledger Account
+        label: *expense_ledger_account
+        heading: *expense_ledger_account
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      payroll_federal_withholding_allowance:
+        _: &payroll_federal_withholding_allowance Payroll Federal Withholding Allowance
+        label: *payroll_federal_withholding_allowance
+        heading: *payroll_federal_withholding_allowance
+        placeholder: None
+        options:
+          one: One
+          two: Two
+          three: Three
+      payroll_federal_withholding_amount:
+        _: &payroll_federal_withholding_amount Payroll Federal Withholding Amount
+        label: *payroll_federal_withholding_amount
+        heading: *payroll_federal_withholding_amount
+      personal_time_balance:
+        _: &personal_time_balance Personal Time Balance
+        label: *personal_time_balance
+        heading: *personal_time_balance
+      vacation_time_balance:
+        _: &vacation_time_balance Vacation Time Balance
+        label: *vacation_time_balance
+        heading: *vacation_time_balance
+      sick_leave_balance:
+        _: &sick_leave_balance Sick Leave Balance
+        label: *sick_leave_balance
+        heading: *sick_leave_balance
+      compensation_increase_date:
+        _: &compensation_increase_date Compensation Increase Date
+        label: *compensation_increase_date
+        heading: *compensation_increase_date
+      next_compensation_increase_date:
+        _: &next_compensation_increase_date Next Compensation Increase Date
+        label: *next_compensation_increase_date
+        heading: *next_compensation_increase_date
+      marital_tax_status:
+        _: &marital_tax_status Marital Tax Status
+        label: *marital_tax_status
+        heading: *marital_tax_status
+      notes:
+        _: &notes Notes
+        label: *notes
+        heading: *notes
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Employees"
+      index: "List Employees"
+      create: "Add a New Employee"
+      member_actions: "Actions for an Individual Employee"
+      show: "Retrieve a Employee"
+      update: "Update a Employee"
+      destroy: "Delete a Employee"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Employees"
+      contexts:
+        company:
+          header: Employees
+          description: Below is a list of Employees that have been added for %{company_name}.
+          description_empty: No Employees have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{employee_name}"
+      header: Employee Details
+      description: Below are the details we have for %{employee_name}.
+      manage_description: You'll also find options for updating these details or removing %{employee_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Employee for %{company_name}"
+      header: New Employee Details
+      description: Please provide the details of the new Employee you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{employee_name}"
+      header: Edit Employee Details
+      description: You can update the details or settings for %{employee_name} below.
+      form: *form
+    notifications:
+      created: Employee was successfully created.
+      updated: Employee was successfully updated.
+      destroyed: Employee was successfully destroyed.
+  account:
+    employees: *employees
+  activerecord:
+    attributes:
+      employee:
+        employee_number: *employee_number
+        employee_status: *employee_status
+        first_name: *first_name
+        middle_name: *middle_name
+        last_name: *last_name
+        address1: *address1
+        address2: *address2
+        city: *city
+        region_state: *region_state
+        phone_number: *phone_number
+        employee_department: *employee_department
+        hire_date: *hire_date
+        termination: *termination
+        payroll_schedule: *payroll_schedule
+        payroll_federal_filing_status: *payroll_federal_filing_status
+        expense_ledger_account: *expense_ledger_account
+        payroll_federal_withholding_allowance: *payroll_federal_withholding_allowance
+        payroll_federal_withholding_amount: *payroll_federal_withholding_amount
+        personal_time_balance: *personal_time_balance
+        vacation_time_balance: *vacation_time_balance
+        sick_leave_balance: *sick_leave_balance
+        compensation_increase_date: *compensation_increase_date
+        next_compensation_increase_date: *next_compensation_increase_date
+        marital_tax_status: *marital_tax_status
+        notes: *notes
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

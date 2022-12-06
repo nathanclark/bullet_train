@@ -116,11 +116,7 @@
                       </li>
                     </ul>
                     <div>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer felis libero, lobortis ac
-                        rutrum quis, varius a velit. Donec lacus erat, cursus sed porta quis, adipiscing et ligula. Duis
-                        volutpat, sem pharetra accumsan pharetra, mi ligula cursus felis, ac aliquet leo diam eget
-                        risus. Integer facilisis, justo cursus venenatis vehicula, massa nisl tempor sem, in ullamcorper
-                        neque mauris in orci.</p>
+                      <%= render 'account/employees/index', employees: @company.employees, hide_back: true %>
                     </div>
                     <div>
                       <%= render 'account/employee_departments/index', employee_departments: @company.employee_departments, hide_back: true %>
@@ -163,6 +159,7 @@
         <% end %>
       <% end %>
     <% end %>
+
 
 
 

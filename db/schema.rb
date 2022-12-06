@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_053225) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_234730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,12 +89,75 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_053225) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
+  create_table "employee_deductions", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "code"
+    t.string "description"
+    t.bigint "employee_id", null: false
+    t.string "calculation_method"
+    t.float "deduction_value"
+    t.boolean "state_withholding"
+    t.string "region_state"
+    t.float "ytd_max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_employee_deductions_on_company_id"
+    t.index ["employee_id"], name: "index_employee_deductions_on_employee_id"
+  end
+
   create_table "employee_departments", force: :cascade do |t|
     t.string "name"
     t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_employee_departments_on_company_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "employee_number"
+    t.string "employee_status"
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "last_name"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "region_state"
+    t.string "phone_number"
+    t.bigint "employee_department_id", null: false
+    t.datetime "hire_date"
+    t.datetime "termination"
+    t.bigint "payroll_schedules_id", null: false
+    t.bigint "payroll_federal_filing_status_id", null: false
+    t.bigint "ledger_account_id", null: false
+    t.bigint "payroll_federal_withholding_allowance_id", null: false
+    t.float "payroll_federal_withholding_amount"
+    t.float "personal_time_balance"
+    t.float "vacation_time_balance"
+    t.float "sick_leave_balance"
+    t.datetime "compensation_increase_date"
+    t.datetime "next_compensation_increase_date"
+    t.string "marital_tax_status"
+    t.text "notes"
+    t.string "email"
+    t.string "ssn"
+    t.string "zip_code"
+    t.string "tax_federal_exemptions"
+    t.string "tax_region_state"
+    t.string "tax_region_state_exemptions"
+    t.float "tax_other_income"
+    t.float "tax_deductions"
+    t.float "tax_extra_withholdings"
+    t.integer "tax_dependants"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["employee_department_id"], name: "index_employees_on_employee_department_id"
+    t.index ["ledger_account_id"], name: "index_employees_on_ledger_account_id"
+    t.index ["payroll_federal_filing_status_id"], name: "index_employees_on_payroll_federal_filing_status_id"
+    t.index ["payroll_federal_withholding_allowance_id"], name: "index_employees_on_payroll_federal_withholding_allowance_id"
+    t.index ["payroll_schedules_id"], name: "index_employees_on_payroll_schedules_id"
   end
 
   create_table "integrations_stripe_installations", force: :cascade do |t|
@@ -258,6 +321,39 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_053225) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["uid"], name: "index_oauth_stripe_accounts_on_uid", unique: true
     t.index ["user_id"], name: "index_oauth_stripe_accounts_on_user_id"
+  end
+
+  create_table "payroll_federal_filing_statuses", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payroll_federal_filing_statuses_on_company_id"
+  end
+
+  create_table "payroll_federal_withholding_allowances", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payroll_federal_withholding_allowances_on_company_id"
+  end
+
+  create_table "payroll_pay_types", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payroll_pay_types_on_company_id"
+  end
+
+  create_table "payroll_schedules", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.string "occurrence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payroll_schedules_on_company_id"
   end
 
   create_table "postal_addresses", force: :cascade do |t|
@@ -470,7 +566,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_053225) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "companies", "teams"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "employee_deductions", "companies"
+  add_foreign_key "employee_deductions", "employees"
   add_foreign_key "employee_departments", "companies"
+  add_foreign_key "employees", "companies"
+  add_foreign_key "employees", "employee_departments"
+  add_foreign_key "employees", "ledger_accounts"
+  add_foreign_key "employees", "payroll_federal_filing_statuses"
+  add_foreign_key "employees", "payroll_federal_withholding_allowances"
+  add_foreign_key "employees", "payroll_schedules", column: "payroll_schedules_id"
   add_foreign_key "integrations_stripe_installations", "oauth_stripe_accounts"
   add_foreign_key "integrations_stripe_installations", "teams"
   add_foreign_key "invitations", "teams"
@@ -492,6 +596,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_053225) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_applications", "teams"
   add_foreign_key "oauth_stripe_accounts", "users"
+  add_foreign_key "payroll_federal_filing_statuses", "companies"
+  add_foreign_key "payroll_federal_withholding_allowances", "companies"
+  add_foreign_key "payroll_pay_types", "companies"
+  add_foreign_key "payroll_schedules", "companies"
   add_foreign_key "postal_addresses", "companies"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts", "teams"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts_collaborators", "memberships"

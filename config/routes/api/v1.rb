@@ -44,6 +44,7 @@ shallow do
         end
 
         resources :employee_departments
+        resources :employees
       end
     end
   end

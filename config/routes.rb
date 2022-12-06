@@ -96,6 +96,7 @@ Rails.application.routes.draw do
           end
 
           resources :employee_departments
+          resources :employees
         end
       end
     end

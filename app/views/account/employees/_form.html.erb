@@ -1,0 +1,41 @@
+<% cancel_path ||= employee.persisted? ? [:account, employee] : [:account, @company, :employees] %>
+
+<%= form_with model: employee, url: (employee.persisted? ? [:account, employee] : [:account, @company, :employees]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%= render 'shared/fields/text_field', method: :employee_number, options: {autofocus: true} %>
+      <%= render 'shared/fields/text_field', method: :employee_status %>
+      <%= render 'shared/fields/text_field', method: :first_name %>
+      <%= render 'shared/fields/text_field', method: :middle_name %>
+      <%= render 'shared/fields/text_field', method: :last_name %>
+      <%= render 'shared/fields/text_field', method: :address1 %>
+      <%= render 'shared/fields/text_field', method: :address2 %>
+      <%= render 'shared/fields/text_field', method: :city %>
+      <%= render 'shared/fields/text_field', method: :region_state %>
+      <%= render 'shared/fields/text_field', method: :phone_number %>
+      <%= render 'shared/fields/super_select', method: :employee_department %>
+      <%= render 'shared/fields/date_field', method: :hire_date %>
+      <%= render 'shared/fields/date_field', method: :termination %>
+      <%= render 'shared/fields/super_select', method: :payroll_schedule %>
+      <%= render 'shared/fields/super_select', method: :payroll_federal_filing_status %>
+      <%= render 'shared/fields/super_select', method: :expense_ledger_account %>
+      <%= render 'shared/fields/super_select', method: :payroll_federal_withholding_allowance %>
+      <%= render 'shared/fields/text_field', method: :payroll_federal_withholding_amount %>
+      <%= render 'shared/fields/text_field', method: :personal_time_balance %>
+      <%= render 'shared/fields/text_field', method: :vacation_time_balance %>
+      <%= render 'shared/fields/text_field', method: :sick_leave_balance %>
+      <%= render 'shared/fields/date_field', method: :compensation_increase_date %>
+      <%= render 'shared/fields/date_field', method: :next_compensation_increase_date %>
+      <%= render 'shared/fields/text_field', method: :marital_tax_status %>
+      <%= render 'shared/fields/trix_editor', method: :notes %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

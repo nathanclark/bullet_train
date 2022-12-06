@@ -27,6 +27,7 @@ components:
     <%= automatic_components_for Vendor %>
     <%= automatic_components_for VendorInvoice %>
     <%= automatic_components_for EmployeeDepartment %>
+    <%= automatic_components_for Employee %>
     <%# 🚅 super scaffolding will insert new components above this line. %>
   parameters:
     id:
@@ -51,4 +52,5 @@ paths:
   <%= automatic_paths_for Vendor, Company %>
   <%= automatic_paths_for VendorInvoice, Vendor %>
   <%= automatic_paths_for EmployeeDepartment, Company %>
+  <%= automatic_paths_for Employee, Company %>
   <%# 🚅 super scaffolding will insert new paths above this line. %>

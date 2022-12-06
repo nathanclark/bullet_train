@@ -1,0 +1,8 @@
+<% employee ||= @employee %>
+<% company ||= @company || employee&.company %>
+<%= render 'account/companies/breadcrumbs', company: company %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, company, :employees] %>
+<% if employee&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: employee.label_string, url: [:account, employee] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'employees' %>

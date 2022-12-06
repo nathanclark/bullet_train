@@ -1,0 +1,127 @@
+<% company = @company || @company %>
+<% context ||= company %>
+<% collection ||= :employees %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% employees = employees.order(:id) unless has_order?(employees) %>
+<% pagy, employees = pagy(employees, page_param: :employees_page) %>
+
+<%= action_model_select_controller do %>
+  <%= updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless employees.any?}") %>
+        <%= render "shared/limits/index", model: employees.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if employees.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <%= render "shared/tables/select_all" %>
+                <th><%= t('.fields.employee_number.heading') %></th>
+                <th><%= t('.fields.employee_status.heading') %></th>
+                <th><%= t('.fields.first_name.heading') %></th>
+                <th><%= t('.fields.middle_name.heading') %></th>
+                <th><%= t('.fields.last_name.heading') %></th>
+                <th><%= t('.fields.address1.heading') %></th>
+                <th><%= t('.fields.address2.heading') %></th>
+                <th><%= t('.fields.city.heading') %></th>
+                <th><%= t('.fields.region_state.heading') %></th>
+                <th><%= t('.fields.phone_number.heading') %></th>
+                <th><%= t('.fields.employee_department.heading') %></th>
+                <th><%= t('.fields.hire_date.heading') %></th>
+                <th><%= t('.fields.termination.heading') %></th>
+                <th><%= t('.fields.payroll_schedule.heading') %></th>
+                <th><%= t('.fields.payroll_federal_filing_status.heading') %></th>
+                <th><%= t('.fields.expense_ledger_account.heading') %></th>
+                <th><%= t('.fields.payroll_federal_withholding_allowance.heading') %></th>
+                <th><%= t('.fields.payroll_federal_withholding_amount.heading') %></th>
+                <th><%= t('.fields.personal_time_balance.heading') %></th>
+                <th><%= t('.fields.vacation_time_balance.heading') %></th>
+                <th><%= t('.fields.sick_leave_balance.heading') %></th>
+                <th><%= t('.fields.compensation_increase_date.heading') %></th>
+                <th><%= t('.fields.next_compensation_increase_date.heading') %></th>
+                <th><%= t('.fields.marital_tax_status.heading') %></th>
+                <%# 🚅 super scaffolding will insert new field headers above this line. %>
+                <th><%= t('.fields.created_at.heading') %></th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% employees.each do |employee| %>
+                <% with_attribute_settings object: employee do %>
+                  <tr data-id="<%= employee.id %>">
+                    <%= render "shared/tables/checkbox", object: employee %>
+                    <td><%= render 'shared/attributes/text', attribute: :employee_number, url: [:account, employee] %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :employee_status %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :first_name %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :middle_name %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :last_name %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :address1 %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :address2 %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :city %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :region_state %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :phone_number %></td>
+                    <td><%= render 'shared/attributes/option', attribute: :employee_department %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :hire_date %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :termination %></td>
+                    <td><%= render 'shared/attributes/option', attribute: :payroll_schedule %></td>
+                    <td><%= render 'shared/attributes/option', attribute: :payroll_federal_filing_status %></td>
+                    <td><%= render 'shared/attributes/option', attribute: :expense_ledger_account %></td>
+                    <td><%= render 'shared/attributes/option', attribute: :payroll_federal_withholding_allowance %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :payroll_federal_withholding_amount %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :personal_time_balance %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :vacation_time_balance %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :sick_leave_balance %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :compensation_increase_date %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :next_compensation_increase_date %></td>
+                    <td><%= render 'shared/attributes/text', attribute: :marital_tax_status %></td>
+                    <%# 🚅 super scaffolding will insert new fields above this line. %>
+                    <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
+                    <td class="buttons">
+                      <% unless hide_actions %>
+                        <% if can? :edit, employee %>
+                          <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, employee], class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <% if can? :destroy, employee %>
+                          <%= button_to t('.buttons.shorthand.destroy'), [:account, employee], method: :delete, data: { confirm: t('.buttons.confirmations.destroy', model_locales(employee)) }, class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == company %>
+            <% if can? :create, Employee.new(company: company) %>
+              <%= link_to t('.buttons.new'), [:new, :account, company, :employee], class: "#{first_button_primary(:employee)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:employee)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
