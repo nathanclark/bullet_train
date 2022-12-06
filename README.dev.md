@@ -171,28 +171,19 @@ text_field statement_min_threshold_amount:text_field customer_import:file_field
 
 Running tests: sudo circleci local execute --job 'Minitest'
 
-rails g model EmployeeDepartment name:string bin/super-scaffold crud EmployeeDepartment Team name:text_field
+rails g model EmployeeDepartment name:string company:references
+bin/super-scaffold crud EmployeeDepartment Company,Team name:text_field
 
 rails g model PayrollSchedule name:string occurrence:string rails g model PayrollPayType name:string rails g model
 PayrollFederalFilingStatus name:string rails g model PayrollFederalWithholdingAllowance name:string rails g model
 EmployeeDeduction code:string description:string employee:references calculation_method:string deduction_value:float
 state_withholding:boolean region_state:string ytd_max:float
 
-rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:
-string address1:string address2:string city:string region_state:string phone_number:string employee_department:
-references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references
-ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float
-personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime
-next_compensation_increase_date:datetime marital_tax_status:string notes:text
+rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text
 
 rails g model EmployeeETO eto_type:string
 
-rails g model Employee employee_number:string employee_status:string first_name:string middle_name:string last_name:
-string address1:string address2:string city:string region_state:string phone_number:string employee_department:
-references hire_date:datetime termination:datetime termination_reason:string payroll_schedule:references
-payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references
-payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:
-float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text
+rails g model Employee company:references employee_number:string employee_status:string first_name:string middle_name:string last_name:string address1:string address2:string city:string region_state:string phone_number:string employee_department:references hire_date:datetime termination:datetime termination_reason:string payroll_schedule:references payroll_federal_filing_status:references ledger_account:references payroll_federal_withholding_allowance:references payroll_federal_withholding_amount:float personal_time_balance:float vacation_time_balance:float sick_leave_balance:float compensation_increase_date:datetime next_compensation_increase_date:datetime marital_tax_status:string notes:text
 
 add_reference(:products, :supplier, foreign_key: { to_table: :firms }) t.references :expense_ledger_account, null:
 false, foreign_key: true, foreign_key: { to_table: :ledger_account })
