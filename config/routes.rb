@@ -94,6 +94,8 @@ Rails.application.routes.draw do
           resources :vendors do
             resources :vendor_invoices
           end
+
+          resources :employee_departments
         end
       end
     end

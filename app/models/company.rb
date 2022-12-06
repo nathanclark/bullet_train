@@ -16,4 +16,5 @@ class Company < ApplicationRecord
 
   has_many :ledger_entries, enable_updates: true
   has_many :vendors, enable_updates: true
+  has_many :employee_departments, enable_updates: true
 end

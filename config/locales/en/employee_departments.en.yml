@@ -1,0 +1,89 @@
+en:
+  employee_departments: &employee_departments
+    label: &label Employee Departments
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Employee Department
+      create: Create Employee Department
+      edit: Edit Employee Department
+      update: Update Employee Department
+      destroy: Remove Employee Department
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{employee_department_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Employee Department ID
+      company_id:
+        heading: Company ID
+      name:
+        _: &name Name
+        label: *name
+        heading: *name
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Employee Departments"
+      index: "List Employee Departments"
+      create: "Add a New Employee Department"
+      member_actions: "Actions for an Individual Employee Department"
+      show: "Retrieve a Employee Department"
+      update: "Update a Employee Department"
+      destroy: "Delete a Employee Department"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Employee Departments"
+      contexts:
+        company:
+          header: Employee Departments
+          description: Below is a list of Employee Departments that have been added for %{company_name}.
+          description_empty: No Employee Departments have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{employee_department_name}"
+      header: Employee Department Details
+      description: Below are the details we have for %{employee_department_name}.
+      manage_description: You'll also find options for updating these details or removing %{employee_department_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Employee Department for %{company_name}"
+      header: New Employee Department Details
+      description: Please provide the details of the new Employee Department you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{employee_department_name}"
+      header: Edit Employee Department Details
+      description: You can update the details or settings for %{employee_department_name} below.
+      form: *form
+    notifications:
+      created: Employee Department was successfully created.
+      updated: Employee Department was successfully updated.
+      destroyed: Employee Department was successfully destroyed.
+  account:
+    employee_departments: *employee_departments
+  activerecord:
+    attributes:
+      employee_department:
+        name: *name
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

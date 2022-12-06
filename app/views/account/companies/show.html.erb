@@ -30,24 +30,21 @@
               <li role="presentation">
                 <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="contacts-tab" data-tabs-target="#vendors" type="button" role="tab" aria-controls="contacts" aria-selected="false">Vendors</button>
               </li>
+              <li role="presentation">
+                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="contacts-tab" data-tabs-target="#payroll" type="button" role="tab" aria-controls="contacts" aria-selected="false">Payroll</button>
+              </li>
             </ul>
           </div>
           <div id="myTabContent">
-
-
             <div class="hidden border-solid p-4 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <% with_attribute_settings object: @company, strategy: :label do %>
                 <%= render 'shared/attributes/text', attribute: :name %>
                 <%= render 'shared/attributes/text', attribute: :legal_name %>
                 <%= render 'shared/attributes/text', attribute: :ein %>
-                <%# 🚅 super scaffolding will insert new fields above this line. %>
               <% end %>
-
             </div>
             <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-
               <%= render 'account/postal_addresses/index', postal_addresses: @company.postal_addresses, hide_back: true %>
-              11
             </div>
             <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
               <div class="grid grid-cols-4 gap-3 ">
@@ -64,12 +61,12 @@
                     </div>
                     <div class="card-body">
 
-                      <p><button class="underline" onclick="Start()">Chart of Accounts listing</button></p>
+                      <p>
+                        <button class="underline" onclick="Start()">Chart of Accounts listing</button>
+                      </p>
 
                     </div>
                   </div>
-
-
 
 
                 </div>
@@ -88,17 +85,16 @@
                     </div>
                     <div class="card-body">
 
-                      <p><button class="underline" onclick="Start()">Ledger Entries</button></p>
+                      <p>
+                        <button class="underline" onclick="Start()">Ledger Entries</button>
+                      </p>
 
                     </div>
                   </div>
 
 
-
-
                 </div>
               </div>
-
             </div>
             <div class="" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
               <%= render 'account/contacts/index', contacts: @company.contacts, hide_back: true %>
@@ -106,9 +102,53 @@
             <div class="" id="vendors" role="tabpanel" aria-labelledby="contacts-tab">
               <%= render 'account/vendors/index', vendors: @company.vendors, hide_back: true %>
             </div>
+            <div class="" id="payroll" role="tabpanel" aria-labelledby="contacts-tab">
+              <div id="payroll-details">
+
+                <div class="payroll-section">
+                  <div id="tabstrip-right">
+                    <ul>
+                      <li class="k-active" style="color:blue;">
+                        Employees
+                      </li>
+                      <li>
+                        Settings
+                      </li>
+                    </ul>
+                    <div>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer felis libero, lobortis ac
+                        rutrum quis, varius a velit. Donec lacus erat, cursus sed porta quis, adipiscing et ligula. Duis
+                        volutpat, sem pharetra accumsan pharetra, mi ligula cursus felis, ac aliquet leo diam eget
+                        risus. Integer facilisis, justo cursus venenatis vehicula, massa nisl tempor sem, in ullamcorper
+                        neque mauris in orci.</p>
+                    </div>
+                    <div>
+                      <%= render 'account/employee_departments/index', employee_departments: @company.employee_departments, hide_back: true %>
+                    </div>
+                  </div>
+                </div>
+                <style>
+                    .demo-section * + h4 {
+                        margin-top: 2em;
+                    }
+
+                    .demo-section .k-tabstrip {
+                        height: 180px;
+                    }
+
+                </style>
+                <script>
+                    $(document).ready(function () {
+                        $("#tabstrip-right").kendoTabStrip({
+                            tabPosition: "right",
+                            animation: {open: {effects: "fadeIn"}}
+                        });
+
+                    });
+                </script>
+              </div>
+            </div>
           </div>
-
-
         <% end %>
 
         <% p.content_for :actions do %>
@@ -123,6 +163,7 @@
         <% end %>
       <% end %>
     <% end %>
+
 
 
 
