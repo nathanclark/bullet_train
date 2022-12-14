@@ -122,6 +122,7 @@
                       <%= render 'account/employee_departments/index', employee_departments: @company.employee_departments, hide_back: true %>
                     </div>
                   </div>
+                  <%= render 'account/payroll_runs/index', payroll_runs: @company.payroll_runs, hide_back: true %>
                 </div>
                 <style>
                     .demo-section * + h4 {
@@ -159,6 +160,7 @@
         <% end %>
       <% end %>
     <% end %>
+
 
 
 

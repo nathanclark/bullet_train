@@ -178,6 +178,8 @@ bin/super-scaffold crud EmployeeDepartment Company,Team name:text_field
 
 rails g model PayrollSchedule Company,Team name:string occurrence:string
 rails g model PayrollRun Company,Team company:references schedule:string employees_paid check_date:datetime pay_date:datetime
+bin/super-scaffold crud PayrollRun Company,Team schedule:date_field employees_paid:text_field check_date:date_field pay_date:date_field
+
 rails g model PayrollRunDetail PayrollRun,Company,Team payroll_run:references schedule:string employees_paid check_date:datetime pay_date:datetime
 
 rails g model PayrollPayType name:string rails g model

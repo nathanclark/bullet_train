@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_234730) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -347,6 +347,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_234730) do
     t.index ["company_id"], name: "index_payroll_pay_types_on_company_id"
   end
 
+  create_table "payroll_runs", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.datetime "schedule"
+    t.string "employees_paid"
+    t.datetime "check_date"
+    t.datetime "pay_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_payroll_runs_on_company_id"
+  end
+
   create_table "payroll_schedules", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.string "name"
@@ -599,6 +610,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_234730) do
   add_foreign_key "payroll_federal_filing_statuses", "companies"
   add_foreign_key "payroll_federal_withholding_allowances", "companies"
   add_foreign_key "payroll_pay_types", "companies"
+  add_foreign_key "payroll_runs", "companies"
   add_foreign_key "payroll_schedules", "companies"
   add_foreign_key "postal_addresses", "companies"
   add_foreign_key "scaffolding_absolutely_abstract_creative_concepts", "teams"

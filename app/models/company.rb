@@ -18,4 +18,5 @@ class Company < ApplicationRecord
   has_many :vendors, enable_updates: true
   has_many :employee_departments, enable_updates: true
   has_many :employees, enable_updates: true
+  has_many :payroll_runs, enable_updates: true
 end

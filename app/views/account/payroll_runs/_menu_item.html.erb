@@ -1,0 +1,10 @@
+<% if can? :read, PayrollRun.new(team: current_team) %>
+  <%= render 'account/shared/menu/item', {
+    url: main_app.polymorphic_path([:account, current_team, :payroll_runs]),
+    label: t('payroll_runs.navigation.label'),
+  } do |p| %>
+    <% p.content_for :icon do %>
+      <i class="<%= t('payroll_runs.navigation.icon') %>"></i>
+    <% end %>
+  <% end %>
+<% end %>

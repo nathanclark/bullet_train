@@ -1,5 +1,6 @@
 default:
   models:
+    PayrollRun: read
     Employee: read
     EmployeeDepartment: read
     VendorInvoice: read
@@ -41,6 +42,7 @@ admin:
     - admin
     - editor
   models:
+    PayrollRun: manage
     Employee: manage
     EmployeeDepartment: manage
     VendorInvoice: manage
