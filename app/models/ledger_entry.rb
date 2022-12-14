@@ -6,7 +6,7 @@ class LedgerEntry < ApplicationRecord
   belongs_to :company
   belongs_to :user
   # 🚅 add belongs_to associations above.
-
+  default_scope { order(created_at: :desc) }
   has_many :ledger_entry_details, dependent: :destroy, enable_updates: true, inverse_of: :ledger_entry
   accepts_nested_attributes_for :ledger_entry_details, allow_destroy: true, reject_if: :all_blank
   validates_associated :ledger_entry_details

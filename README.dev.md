@@ -176,7 +176,11 @@ Running tests: sudo circleci local execute --job 'Minitest'
 rails g model EmployeeDepartment name:string company:references
 bin/super-scaffold crud EmployeeDepartment Company,Team name:text_field
 
-rails g model PayrollSchedule name:string occurrence:string rails g model PayrollPayType name:string rails g model
+rails g model PayrollSchedule Company,Team name:string occurrence:string
+rails g model PayrollRun Company,Team company:references schedule:string employees_paid check_date:datetime pay_date:datetime
+rails g model PayrollRunDetail PayrollRun,Company,Team payroll_run:references schedule:string employees_paid check_date:datetime pay_date:datetime
+
+rails g model PayrollPayType name:string rails g model
 PayrollFederalFilingStatus name:string rails g model PayrollFederalWithholdingAllowance name:string rails g model
 EmployeeDeduction code:string description:string employee:references calculation_method:string deduction_value:float
 state_withholding:boolean region_state:string ytd_max:float
