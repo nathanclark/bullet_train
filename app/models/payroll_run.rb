@@ -6,6 +6,7 @@ class PayrollRun < ApplicationRecord
   belongs_to :company
   # 🚅 add belongs_to associations above.
 
+  has_many :payroll_run_details, dependent: :destroy, enable_updates: true
   # 🚅 add has_many associations above.
 
   has_one :team, through: :company

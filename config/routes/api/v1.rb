@@ -45,7 +45,10 @@ shallow do
 
         resources :employee_departments
         resources :employees
-        resources :payroll_runs
+        resources :payroll_runs do
+          resources :payroll_run_details
+        end
+        resources :bank_accounts
       end
     end
   end

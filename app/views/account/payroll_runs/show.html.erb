@@ -32,6 +32,7 @@
       <% end %>
     <% end %>
 
+    <%= render 'account/payroll_run_details/index', payroll_run_details: @payroll_run.payroll_run_details, hide_back: true %>
     <%# 🚅 super scaffolding will insert new children above this line. %>
   <% end %>
 <% end %>

@@ -1,5 +1,7 @@
 default:
   models:
+    PayrollRunDetail: read
+    BankAccount: read
     PayrollRun: read
     Employee: read
     EmployeeDepartment: read
@@ -42,6 +44,8 @@ admin:
     - admin
     - editor
   models:
+    PayrollRunDetail: manage
+    BankAccount: manage
     PayrollRun: manage
     Employee: manage
     EmployeeDepartment: manage

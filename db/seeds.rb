@@ -14,3 +14,8 @@ if Rails.env == "test" && ENV["seed_stub"] == "true"
   user = User.find_by(email: "test@test.com")
   p "User is seeding: #{user.seeding?}"
 end
+
+if Vendor.count == 0
+  ##Vendor.create(name: "A L TELEPHONE", company_id: 1, ledger_account_id: 1, vendor_number: "ALTELE", vendor_status: "Active", address1: "1075 US HWY 380 EAST", city: "GRAHAM", region_state: "TX", zip_code: "76450", phone_number: "123-456-7890"
+end
+

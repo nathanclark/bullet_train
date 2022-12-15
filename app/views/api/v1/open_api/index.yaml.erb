@@ -29,6 +29,8 @@ components:
     <%= automatic_components_for EmployeeDepartment %>
     <%= automatic_components_for Employee %>
     <%= automatic_components_for PayrollRun %>
+    <%= automatic_components_for BankAccount %>
+    <%= automatic_components_for PayrollRunDetail %>
     <%# 🚅 super scaffolding will insert new components above this line. %>
   parameters:
     id:
@@ -55,4 +57,6 @@ paths:
   <%= automatic_paths_for EmployeeDepartment, Company %>
   <%= automatic_paths_for Employee, Company %>
   <%= automatic_paths_for PayrollRun, Company %>
+  <%= automatic_paths_for BankAccount, Company %>
+  <%= automatic_paths_for PayrollRunDetail, PayrollRun %>
   <%# 🚅 super scaffolding will insert new paths above this line. %>

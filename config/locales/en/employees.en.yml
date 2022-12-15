@@ -67,11 +67,6 @@ en:
         _: &employee_department Employee Department
         label: *employee_department
         heading: *employee_department
-        placeholder: None
-        options:
-          one: One
-          two: Two
-          three: Three
       hire_date:
         _: &hire_date Hire Date
         label: *hire_date

@@ -19,4 +19,5 @@ class Company < ApplicationRecord
   has_many :employee_departments, enable_updates: true
   has_many :employees, enable_updates: true
   has_many :payroll_runs, enable_updates: true
+  has_many :bank_accounts, enable_updates: true
 end

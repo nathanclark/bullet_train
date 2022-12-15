@@ -15,7 +15,8 @@
       <%= render 'shared/fields/text_field', method: :city %>
       <%= render 'shared/fields/text_field', method: :region_state %>
       <%= render 'shared/fields/text_field', method: :phone_number %>
-      <%= render 'shared/fields/super_select', method: :employee_department %>
+      <%= render 'shared/fields/super_select', method: :employee_department_id, options: {}, html_options: {},
+                 choices: EmployeeDepartment.all.map { |ed| [ed.label_string, ed.id] } %>
       <%= render 'shared/fields/date_field', method: :hire_date %>
       <%= render 'shared/fields/date_field', method: :termination %>
       <%= render 'shared/fields/super_select', method: :payroll_schedule %>

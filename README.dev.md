@@ -177,10 +177,20 @@ rails g model EmployeeDepartment name:string company:references
 bin/super-scaffold crud EmployeeDepartment Company,Team name:text_field
 
 rails g model PayrollSchedule Company,Team name:string occurrence:string
+
+rails g model PayrollSchedule Company,Team name:string occurrence:string
+
 rails g model PayrollRun Company,Team company:references schedule:string employees_paid check_date:datetime pay_date:datetime
+
 bin/super-scaffold crud PayrollRun Company,Team schedule:date_field employees_paid:text_field check_date:date_field pay_date:date_field
 
-rails g model PayrollRunDetail PayrollRun,Company,Team payroll_run:references schedule:string employees_paid check_date:datetime pay_date:datetime
+rails g model PayrollRunDetail payroll_run:references bank_account:references employee:references check_date:datetime pay_date:datetime amount:float
+bin/super-scaffold crud PayrollRunDetail PayrollRun,Company,Team employee_id:super_select{class_name=LedgerAccount} check_date:date_field pay_date:date_field amount:text_field
+bin/super-scaffold crud PayrollRunDetail PayrollRun,Company,Team bank_account_id:super_select{class_name=BankAccount} schedule:date_field employees_paid:text_field check_date:date_field pay_date:date_field
+bin/super-scaffold crud-field PayrollRunDetail employee_id:super_select{class_name=Employee}
+rails g model BankAccount company:references name:string account_number:string routing_number:string ledger_account:references
+bin/super-scaffold crud BankAccount Company,Team name:text_field account_number:text_field routing_number:text_field ledger_account_id:super_select{class_name=LedgerAccount}
+rails g model PayrollRun Company,Team company:references schedule:string employees_paid check_date:datetime pay_date:datetime
 
 rails g model PayrollPayType name:string rails g model
 PayrollFederalFilingStatus name:string rails g model PayrollFederalWithholdingAllowance name:string rails g model

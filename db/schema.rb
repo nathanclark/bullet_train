@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_14_231015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.string "name"
+    t.string "account_number"
+    t.string "routing_number"
+    t.bigint "ledger_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_bank_accounts_on_company_id"
+    t.index ["ledger_account_id"], name: "index_bank_accounts_on_ledger_account_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -347,6 +359,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
     t.index ["company_id"], name: "index_payroll_pay_types_on_company_id"
   end
 
+  create_table "payroll_run_details", force: :cascade do |t|
+    t.bigint "payroll_run_id", null: false
+    t.bigint "bank_account_id", null: false
+    t.bigint "employee_id", null: false
+    t.datetime "check_date"
+    t.datetime "pay_date"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_account_id"], name: "index_payroll_run_details_on_bank_account_id"
+    t.index ["employee_id"], name: "index_payroll_run_details_on_employee_id"
+    t.index ["payroll_run_id"], name: "index_payroll_run_details_on_payroll_run_id"
+  end
+
   create_table "payroll_runs", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.datetime "schedule"
@@ -575,6 +601,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bank_accounts", "companies"
+  add_foreign_key "bank_accounts", "ledger_accounts"
   add_foreign_key "companies", "teams"
   add_foreign_key "contacts", "companies"
   add_foreign_key "employee_deductions", "companies"
@@ -610,6 +638,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_224402) do
   add_foreign_key "payroll_federal_filing_statuses", "companies"
   add_foreign_key "payroll_federal_withholding_allowances", "companies"
   add_foreign_key "payroll_pay_types", "companies"
+  add_foreign_key "payroll_run_details", "bank_accounts"
+  add_foreign_key "payroll_run_details", "employees"
+  add_foreign_key "payroll_run_details", "payroll_runs"
   add_foreign_key "payroll_runs", "companies"
   add_foreign_key "payroll_schedules", "companies"
   add_foreign_key "postal_addresses", "companies"

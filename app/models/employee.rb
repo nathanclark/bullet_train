@@ -26,6 +26,6 @@ class Employee < ApplicationRecord
   # 🚅 add callbacks above.
 
   # 🚅 add delegations above.
-
+  enum employee_type: { salary:'salary', hourly:'hourly' }
   # 🚅 add methods above.
 end
