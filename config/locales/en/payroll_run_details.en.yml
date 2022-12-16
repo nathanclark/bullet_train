@@ -1,0 +1,118 @@
+en:
+  payroll_run_details: &payroll_run_details
+    label: &label Payroll Run Details
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Payroll Run Detail
+      create: Create Payroll Run Detail
+      edit: Edit Payroll Run Detail
+      update: Update Payroll Run Detail
+      destroy: Remove Payroll Run Detail
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{payroll_run_detail_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Payroll Run Detail ID
+      payroll_run_id:
+        heading: Payroll Run ID
+      bank_account_id: &bank_account
+        _: &bank_account_id Bank Account
+        label: *bank_account_id
+        heading: *bank_account_id
+        placeholder: Select
+      bank_account: *bank_account
+      schedule:
+        _: &schedule Schedule
+        label: *schedule
+        heading: *schedule
+      employees_paid:
+        _: &employees_paid Employees Paid
+        label: *employees_paid
+        heading: *employees_paid
+      check_date:
+        _: &check_date Check Date
+        label: *check_date
+        heading: *check_date
+      pay_date:
+        _: &pay_date Pay Date
+        label: *pay_date
+        heading: *pay_date
+      employee_id: &employee
+        _: &employee_id Employee
+        label: *employee_id
+        heading: *employee_id
+        placeholder: None
+      employee: *employee
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Payroll Run Details"
+      index: "List Payroll Run Details"
+      create: "Add a New Payroll Run Detail"
+      member_actions: "Actions for an Individual Payroll Run Detail"
+      show: "Retrieve a Payroll Run Detail"
+      update: "Update a Payroll Run Detail"
+      destroy: "Delete a Payroll Run Detail"
+      fields: *fields
+    index:
+      section: "%{payroll_runs_possessive} Payroll Run Details"
+      contexts:
+        payroll_run:
+          header: Payroll Run Details
+          description: Below is a list of Payroll Run Details that have been added for %{payroll_run_name}.
+          description_empty: No Payroll Run Details have been added for %{payroll_run_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{payroll_run_detail_name}"
+      header: Payroll Run Detail Details
+      description: Below are the details we have for %{payroll_run_detail_name}.
+      manage_description: You'll also find options for updating these details or removing %{payroll_run_detail_name} from %{payroll_run_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Payroll Run Detail for %{payroll_run_name}"
+      header: Paycheck Details
+      description: Please provide the details of the new Payroll Run Detail you'd like to add to %{payroll_run_name}.
+      form: *form
+    edit:
+      section: "%{payroll_run_detail_name}"
+      header: Edit Payroll Run Detail Details
+      description: You can update the details or settings for %{payroll_run_detail_name} below.
+      form: *form
+    notifications:
+      created: Payroll Run Detail was successfully created.
+      updated: Payroll Run Detail was successfully updated.
+      destroyed: Payroll Run Detail was successfully destroyed.
+  account:
+    payroll_run_details: *payroll_run_details
+  activerecord:
+    attributes:
+      payroll_run_detail:
+        bank_account_id: *bank_account_id
+        schedule: *schedule
+        employees_paid: *employees_paid
+        check_date: *check_date
+        pay_date: *pay_date
+        employee_id: *employee_id
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

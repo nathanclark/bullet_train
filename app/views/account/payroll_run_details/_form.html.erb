@@ -1,0 +1,23 @@
+<% cancel_path ||= payroll_run_detail.persisted? ? [:account, payroll_run_detail] : [:account, @payroll_run, :payroll_run_details] %>
+
+<%= form_with model: payroll_run_detail, url: (payroll_run_detail.persisted? ? [:account, payroll_run_detail] : [:account, @payroll_run, :payroll_run_details]), local: true, class: 'form' do |form| %>
+  <%= render "shared/limits/form", form: form, cancel_path: cancel_path do %>
+    <%= render 'account/shared/forms/errors', form: form %>
+
+    <% with_field_settings form: form do %>
+      <%= render 'shared/fields/super_select', method: :bank_account_id, options: {autofocus: true}, html_options: {autofocus: true},
+        choices: @payroll_run_detail.valid_bank_accounts.map { |bank_account| [bank_account.label_string, bank_account.id] } %>
+      <%#= render 'shared/fields/date_field', method: :schedule %>
+      <%= render 'shared/fields/date_field', method: :check_date %>
+      <%= render 'shared/fields/date_field', method: :pay_date %>
+      <%= render 'shared/fields/super_select', method: :employee_id, options: {}, html_options: {},
+        choices: @payroll_run_detail.valid_employees.map { |employee| [employee.label_string, employee.id] } %>
+      <%# 🚅 super scaffolding will insert new fields above this line. %>
+    <% end %>
+
+    <div class="buttons">
+      <%= form.submit (form.object.persisted? ? t('.buttons.update') : t('.buttons.create')), class: "button" %>
+      <%= link_to t('global.buttons.cancel'), cancel_path, class: "button-secondary" %>
+    </div>
+  <% end %>
+<% end %>

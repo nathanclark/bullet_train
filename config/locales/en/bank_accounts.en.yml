@@ -1,0 +1,106 @@
+en:
+  bank_accounts: &bank_accounts
+    label: &label Bank Accounts
+    breadcrumbs:
+      label: *label
+    navigation:
+      label: *label
+      icon: fal fa-puzzle-piece
+    buttons: &buttons
+      new: Add New Bank Account
+      create: Create Bank Account
+      edit: Edit Bank Account
+      update: Update Bank Account
+      destroy: Remove Bank Account
+      shorthand:
+        edit: Edit
+        destroy: Delete
+      confirmations:
+        # TODO customize for your use-case.
+        destroy: Are you sure you want to remove %{bank_account_name}? This will also remove any child resources and can't be undone.
+    fields: &fields
+      id:
+        heading: Bank Account ID
+      company_id:
+        heading: Company ID
+      name:
+        _: &name Name
+        label: *name
+        heading: *name
+      account_number:
+        _: &account_number Account Number
+        label: *account_number
+        heading: *account_number
+      routing_number:
+        _: &routing_number Routing Number
+        label: *routing_number
+        heading: *routing_number
+      ledger_account_id: &ledger_account
+        _: &ledger_account_id Ledger Account
+        label: *ledger_account_id
+        heading: *ledger_account_id
+        placeholder: None
+      ledger_account: *ledger_account
+      # 🚅 super scaffolding will insert new fields above this line.
+      created_at:
+        _: &created_at Added
+        label: *created_at
+        heading: *created_at
+      updated_at:
+        _: &updated_at Updated
+        label: *updated_at
+        heading: *updated_at
+    api:
+      collection_actions: "Collection Actions for Bank Accounts"
+      index: "List Bank Accounts"
+      create: "Add a New Bank Account"
+      member_actions: "Actions for an Individual Bank Account"
+      show: "Retrieve a Bank Account"
+      update: "Update a Bank Account"
+      destroy: "Delete a Bank Account"
+      fields: *fields
+    index:
+      section: "%{companies_possessive} Bank Accounts"
+      contexts:
+        company:
+          header: Bank Accounts
+          description: Below is a list of Bank Accounts that have been added for %{company_name}.
+          description_empty: No Bank Accounts have been added for %{company_name}.
+      fields: *fields
+      buttons: *buttons
+    show:
+      section: "%{bank_account_name}"
+      header: Bank Account Details
+      description: Below are the details we have for %{bank_account_name}.
+      manage_description: You'll also find options for updating these details or removing %{bank_account_name} from %{company_name} entirely.
+      fields: *fields
+      buttons: *buttons
+    form: &form
+      buttons: *buttons
+      fields: *fields
+    new:
+      section: "New Bank Account for %{company_name}"
+      header: New Bank Account Details
+      description: Please provide the details of the new Bank Account you'd like to add to %{company_name}.
+      form: *form
+    edit:
+      section: "%{bank_account_name}"
+      header: Edit Bank Account Details
+      description: You can update the details or settings for %{bank_account_name} below.
+      form: *form
+    notifications:
+      created: Bank Account was successfully created.
+      updated: Bank Account was successfully updated.
+      destroyed: Bank Account was successfully destroyed.
+  account:
+    bank_accounts: *bank_accounts
+  activerecord:
+    attributes:
+      bank_account:
+        name: *name
+        account_number: *account_number
+        routing_number: *routing_number
+        ledger_account_id: *ledger_account_id
+        # 🚅 super scaffolding will insert new activerecord attributes above this line.
+        created_at: *created_at
+        updated_at: *updated_at

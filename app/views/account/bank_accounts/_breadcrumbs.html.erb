@@ -1,0 +1,8 @@
+<% bank_account ||= @bank_account %>
+<% company ||= @company || bank_account&.company %>
+<%= render 'account/companies/breadcrumbs', company: company %>
+<%= render 'account/shared/breadcrumb', label: t('.label'), url: [:account, company, :bank_accounts] %>
+<% if bank_account&.persisted? %>
+  <%= render 'account/shared/breadcrumb', label: bank_account.label_string, url: [:account, bank_account] %>
+<% end %>
+<%= render 'account/shared/breadcrumbs/actions', only_for: 'bank_accounts' %>

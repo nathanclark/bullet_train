@@ -52,7 +52,7 @@
             <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
               <div class="grid grid-cols-4 gap-3 ">
                 <div class="pr-5 col-span-3"><%= render 'account/ledger_accounts/index', ledger_accounts: @company.ledger_accounts, hide_back: true %></div>
-                <div class="pr-5">
+                <div class="pr-5 pb-5">
                   <div class="card  bg-base-100 shadow">
                     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
                       <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
@@ -70,7 +70,23 @@
 
                     </div>
                   </div>
+                  <br>
+                  <div class="card  bg-base-100 shadow pt-5">
+                    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+                      <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
+                        <div class="ml-4 mt-2">
+                          <h3 class="text-lg font-medium leading-6 text-gray-900">Ledger Actions</h3>
+                        </div>
 
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <% if can? :create, LedgerEntry.new(company: @company) %>
+                        <%= link_to 'Create Ledger Entry', [:new, :account, @company, :ledger_entry], class: "#{first_button_primary(:ledger_entry)} new" %>
+                      <% end %>
+
+                    </div>
+                  </div>
 
                 </div>
               </div>

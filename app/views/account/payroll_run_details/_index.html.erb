@@ -1,0 +1,87 @@
+<% payroll_run = @payroll_run || @payroll_run %>
+<% context ||= payroll_run %>
+<% collection ||= :payroll_run_details %>
+<% hide_actions ||= false %>
+<% hide_back ||= false %>
+
+<% payroll_run_details = payroll_run_details.order(:id) unless has_order?(payroll_run_details) %>
+<% pagy, payroll_run_details = pagy(payroll_run_details, page_param: :payroll_run_details_page) %>
+
+<%= action_model_select_controller do %>
+  <%= updates_for context, collection do %>
+    <%= render 'account/shared/box', pagy: pagy do |p| %>
+      <% p.content_for :title, t(".contexts.#{context.class.name.underscore}.header") %>
+      <% p.content_for :description do %>
+        <%= t(".contexts.#{context.class.name.underscore}.description#{"_empty" unless payroll_run_details.any?}") %>
+        <%= render "shared/limits/index", model: payroll_run_details.model %>
+      <% end %>
+
+      <% p.content_for :table do %>
+        <% if payroll_run_details.any? %>
+          <table class="table">
+            <thead>
+              <tr>
+                <%= render "shared/tables/select_all" %>
+                <th><%= t('.fields.bank_account.heading') %></th>
+                <th><%= t('.fields.check_date.heading') %></th>
+                <th><%= t('.fields.pay_date.heading') %></th>
+                <th><%= t('.fields.employee.heading') %></th>
+                <%# 🚅 super scaffolding will insert new field headers above this line. %>
+                <th><%= t('.fields.created_at.heading') %></th>
+                <th class="text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% payroll_run_details.each do |payroll_run_detail| %>
+                <% with_attribute_settings object: payroll_run_detail do %>
+                  <tr data-id="<%= payroll_run_detail.id %>">
+                    <%= render "shared/tables/checkbox", object: payroll_run_detail %>
+                    <td><%= render 'shared/attributes/belongs_to', attribute: :bank_account, url: [:account, payroll_run_detail] %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :check_date %></td>
+                    <td><%= render 'shared/attributes/date', attribute: :pay_date %></td>
+                    <td><%= render 'shared/attributes/belongs_to', attribute: :employee %></td>
+                    <%# 🚅 super scaffolding will insert new fields above this line. %>
+                    <td><%= render 'shared/attributes/date_and_time', attribute: :created_at %></td>
+                    <td class="buttons">
+                      <% unless hide_actions %>
+                        <% if can? :edit, payroll_run_detail %>
+                          <%= link_to t('.buttons.shorthand.edit'), [:edit, :account, payroll_run_detail], class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <% if can? :destroy, payroll_run_detail %>
+                          <%= button_to t('.buttons.shorthand.destroy'), [:account, payroll_run_detail], method: :delete, data: { confirm: t('.buttons.confirmations.destroy', model_locales(payroll_run_detail)) }, class: 'button-secondary button-smaller' %>
+                        <% end %>
+                        <%# 🚅 super scaffolding will insert new action model buttons above this line. %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :actions do %>
+        <% unless hide_actions %>
+          <% if context == payroll_run %>
+            <% if can? :create, PayrollRunDetail.new(payroll_run: payroll_run) %>
+              <%= link_to t('.buttons.new'), [:new, :account, payroll_run, :payroll_run_detail], class: "#{first_button_primary(:payroll_run_detail)} new" %>
+            <% end %>
+          <% end %>
+
+          <%# 🚅 super scaffolding will insert new targets one parent action model buttons above this line. %>
+          <%# 🚅 super scaffolding will insert new bulk action model buttons above this line. %>
+          <%= render "shared/bulk_action_select" %>
+
+          <% unless hide_back %>
+            <%= link_to t('global.buttons.back'), [:account, context], class: "#{first_button_primary(:payroll_run_detail)} back" %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% p.content_for :raw_footer do %>
+        <%# 🚅 super scaffolding will insert new action model index views above this line. %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
