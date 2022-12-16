@@ -61,6 +61,8 @@ Running tests:  sudo circleci local execute --job 'Minitest'
 rails g model EmployeeDepartment name:string
 bin/super-scaffold crud EmployeeDepartment Team name:text_field
 rails g model BankCheck company:references check_number:integer check_date:date amount:float payee:string memo:text
+bin/super-scaffold crud BankCheck Company,Team check_number:text_field check_date:date_field amount:text_field payee:text_field memo:text_area
+
 rails g model BankCheckDetail customer bank_check_detail_type bank_check:references ledger_account:references amount:float line_item description quantity:integer unit_price:float cost:float  tax_rate:float tax_amount:float item_class:string billable:boolean
 
 rails g model PayrollSchedule company:references name:string occurrence:string 
